@@ -37,18 +37,6 @@ class _DesktopMainPatientPagePatientState
   String selectedCategory = '';
   List<String> listOfElements = [];
 
-  /* @override
-  void initState() {
-    super.initState();
-    _getData();
-  }
-
-  void _getData() async {
-    patients = await ApiDataProvider().getPatientsDoctor("");
-
-    //_userModel = (await ApiDataProvider().getUser());
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-  }*/
 
   Map<String, String>? getPatientData() {
     return globals.user?.getData();
@@ -215,22 +203,7 @@ class _DesktopMainPatientPagePatientState
             //Spacer(),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: /*categories
-                  .map(
-                    (category) => ChoiceChip(
-                        label: Text(category),
-                        selected: selectedCategory == category,
-                        onSelected: (isSelected) {
-                          setState(() {
-                            if (isSelected) {
-                              selectedCategory = category;
-                            } else {
-                              selectedCategory = '';
-                            }
-                          });
-                        }),
-                  )
-                  .toList(),*/
+                children: 
                     getChoiceChips()),
             Flexible(
               child: Padding(
@@ -246,21 +219,7 @@ class _DesktopMainPatientPagePatientState
                             // e.g.
                             Padding(
                               padding: const EdgeInsets.all(12.0),
-                              child: /*Container(
-                                width: MediaQuery.of(context).size.width * 0.2,
-                                child: RichText(text: patientDataToString()),
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    // to make elevation
-                                    BoxShadow(
-                                      color: Colors.black45,
-                                      offset: Offset(2, 2),
-                                      blurRadius: 4,
-                                    ),
-                                    // to make the coloured border
-                                  ],
-                                ),
-                              ),*/
+                              child: 
 
                                   SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.8,
@@ -279,36 +238,6 @@ class _DesktopMainPatientPagePatientState
                                 ),
                               ),
                             ),
-
-                            /*TextField(
-                                    readOnly: true,
-                                    cursorColor: secondColor,
-                                    decoration: InputDecoration(
-                                      focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: secondColor,
-                                          width: 2.0,
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                      ),
-                                      labelText: patientDataToString(),
-                                      //focusedBorder: OutlineInputBorder(
-                                      //  borderSide:
-                                      //     BorderSide(color: firstColor),
-                                      //  borderRadius: BorderRadius.all(
-                                      //    Radius.circular(9.0))),
-                                      hintStyle: TextStyle(
-                                          fontSize: 16.0, color: secondColor),
-                                      labelStyle: TextStyle(
-                                          fontSize: 16.0, color: secondColor),
-                                      errorStyle: TextStyle(fontSize: 18.0),
-                                      border: OutlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: secondColor),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(9.0))),
-                                    ))*/
                           ]),
                     )),
               ),

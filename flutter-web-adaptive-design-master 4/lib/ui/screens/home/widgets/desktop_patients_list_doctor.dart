@@ -32,30 +32,21 @@ class _DesktopPatientListPageDoctorState
 
   void _getData() async {
     patients = await ApiDataProvider().getPatientsDoctor(globals.user!.id);
-
-    //_userModel = (await ApiDataProvider().getUser());
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
   void patientIdProfile(int index) {
     globals.currentPatientID = patients[index].id;
-    // go to patients profile with this id
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => (DesktopMainPatientPageDoctor())));
   }
 
   String getPatientsName(int index) {
-    //if (patients[index].fathername != null) {
-    // return patients[index].lastname +
-    //     patients[index].firstname +
-    // patients[index].fathername;
-    // } else {
     return patients[index].lastname +
         " " +
         patients[index].firstname +
         " " +
         patients[index].fathername;
-    // }
   }
 
   @override

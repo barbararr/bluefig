@@ -33,8 +33,6 @@ class _DesktopAddDoctorToPatientState extends State<DesktopAddDoctorToPatient> {
 
   void _getData() async {
     doctors = await ApiDataProvider().getDoctorsAdmin();
-
-    //_userModel = (await ApiDataProvider().getUser());
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
@@ -46,17 +44,11 @@ class _DesktopAddDoctorToPatientState extends State<DesktopAddDoctorToPatient> {
   }
 
   String getDoctorsName(int index) {
-    //if (patients[index].fathername != null) {
-    // return patients[index].lastname +
-    //     patients[index].firstname +
-    // patients[index].fathername;
-    // } else {
     return doctors[index].lastname +
         " " +
         doctors[index].firstname +
         " " +
         doctors[index].fathername;
-    // }
   }
 
   Color color = fourthColor;

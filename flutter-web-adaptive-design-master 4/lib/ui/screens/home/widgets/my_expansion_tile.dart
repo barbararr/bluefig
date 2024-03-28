@@ -8,7 +8,6 @@ class MyExpansionTile extends StatefulWidget {
 }
 
 class _MyExpansionTileState extends State<MyExpansionTile> {
-  // Generate a list of Users, You often use API or database for creation of this list
   final List<Map<String, dynamic>> _users = List.generate(
       20,
       (index) => {
@@ -18,7 +17,6 @@ class _MyExpansionTileState extends State<MyExpansionTile> {
                 "User with id $index. You can write detial for expansion tile here."
           });
 
-  //Function use to delete the user from the list
   void _deleteUser(int id) {
     setState(() {
       _users.removeWhere((element) => element['id'] == id);

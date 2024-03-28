@@ -16,15 +16,8 @@ class ModulesExpansionTile extends StatefulWidget {
 }
 
 class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
-  // Generate a list of Users, You often use API or database for creation of this list
   List<Map<String, dynamic>> modulesToPrint = [];
-  /*List.generate(
-          5,
-          (index) => {
-                "id": index,
-                "name": "Модуль $index",
-                "detail": "Модуль $index. \nПараметры: ..."
-              });*/
+
 
   List<ModuleModel> modules = [];
 
@@ -70,8 +63,6 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
       itemBuilder: (_, index) {
         final item = modulesToPrint[index];
         return Card(
-          //Remember
-          //Here key is required to save and restore ExpansionTile expanded state
           key: PageStorageKey(item['id']),
 
           child: ExpansionTile(
@@ -83,7 +74,6 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
             title: Text(item['name']),
             textColor: firstColor,
             iconColor: firstColor,
-            // Expanded Contents
             children: [
               ListTile(
                   leading: const CircleAvatar(
@@ -99,16 +89,6 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
                     "Частота: ",
                     style: TextStyle(color: Colors.black, fontSize: 15),
                   ),
-                  /*DropdownButton<String>(
-                    items: <String>['1 день', '3 дня', '1 неделя', '2 недели']
-                        .map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (_) {},
-                  ),*/
                   Container(
                     width: MediaQuery.of(context).size.width / 6,
                     height: 30,
@@ -129,11 +109,8 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
                                 BorderRadius.all(Radius.circular(9.0))),
                       ),
                     ),
-                    //),
                   ),
-                  /*TextFormField(
-                    onChanged: (value) => frequency = value as int,
-                  ),*/
+                  
                   Text(
                     " дней",
                     style: TextStyle(color: Colors.black, fontSize: 15),

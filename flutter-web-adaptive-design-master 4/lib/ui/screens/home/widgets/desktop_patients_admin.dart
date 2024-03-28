@@ -35,8 +35,6 @@ class _DesktopPatientListPageAdminState
 
   void _getData() async {
     patients = await ApiDataProvider().getPatientsAdmin();
-
-    //_userModel = (await ApiDataProvider().getUser());
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
@@ -48,17 +46,11 @@ class _DesktopPatientListPageAdminState
   }
 
   String getPatientName(int index) {
-    //if (patients[index].fathername != null) {
-    // return patients[index].lastname +
-    //     patients[index].firstname +
-    // patients[index].fathername;
-    // } else {
     return patients[index].lastname +
         " " +
         patients[index].firstname +
         " " +
         patients[index].fathername;
-    // }
   }
 
   @override

@@ -261,26 +261,6 @@ class _DesktopMainDoctorPageAdminState
                   ),
                 ],
               ),
-              //Spacer(),
-              /*Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: /*categories
-                    .map(
-                      (category) => ChoiceChip(
-                          label: Text(category),
-                          selected: selectedCategory == category,
-                          onSelected: (isSelected) {
-                            setState(() {
-                              if (isSelected) {
-                                selectedCategory = category;
-                              } else {
-                                selectedCategory = '';
-                              }
-                            });
-                          }),
-                    )
-                    .toList(),*/
-                      getChoiceChips()),;*/
               Flexible(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
@@ -295,21 +275,7 @@ class _DesktopMainDoctorPageAdminState
                               // e.g.
                               Padding(
                                 padding: const EdgeInsets.all(12.0),
-                                child: /*Container(
-                                  width: MediaQuery.of(context).size.width * 0.2,
-                                  child: RichText(text: patientDataToString()),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      // to make elevation
-                                      BoxShadow(
-                                        color: Colors.black45,
-                                        offset: Offset(2, 2),
-                                        blurRadius: 4,
-                                      ),
-                                      // to make the coloured border
-                                    ],
-                                  ),
-                                ),*/
+                                child: 
 
                                     SizedBox(
                                   width:
@@ -330,35 +296,7 @@ class _DesktopMainDoctorPageAdminState
                                 ),
                               ),
 
-                              /*TextField(
-                                      readOnly: true,
-                                      cursorColor: secondColor,
-                                      decoration: InputDecoration(
-                                        focusedBorder: const OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: secondColor,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                        ),
-                                        labelText: patientDataToString(),
-                                        //focusedBorder: OutlineInputBorder(
-                                        //  borderSide:
-                                        //     BorderSide(color: firstColor),
-                                        //  borderRadius: BorderRadius.all(
-                                        //    Radius.circular(9.0))),
-                                        hintStyle: TextStyle(
-                                            fontSize: 16.0, color: secondColor),
-                                        labelStyle: TextStyle(
-                                            fontSize: 16.0, color: secondColor),
-                                        errorStyle: TextStyle(fontSize: 18.0),
-                                        border: OutlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: secondColor),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(9.0))),
-                                      ))*/
+                              
                             ]),
                       )),
                 ),

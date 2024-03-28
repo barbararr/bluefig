@@ -114,22 +114,7 @@ class _DesktopModulesPageDoctorState extends State<DesktopModulesPageDoctor> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20.0, 20.0, 0, 0),
               child: Row(
-                  children: /*categories
-                    .map((category) => ChoiceChip(
-                        avatar: Icon(Icons.arrow_back),
-                        label: Text(category),
-                        selected: selectedCategory == category,
-                        onSelected: (isSelected) {
-                          setState(() {
-                            if (isSelected) {
-                              selectedCategory = category;
-                            } else {
-                              selectedCategory = '';
-                            }
-
-                          });
-                        }))
-                    .toList(),*/
+                  children: 
                       [
                     Container(
                       child: RaisedButton.icon(

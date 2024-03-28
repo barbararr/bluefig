@@ -81,11 +81,6 @@ class _LoginState extends State<Login> {
                                     ),
                                     hintText: 'Username',
                                     labelText: 'Username',
-                                    //focusedBorder: OutlineInputBorder(
-                                    //  borderSide:
-                                    //     BorderSide(color: firstColor),
-                                    //  borderRadius: BorderRadius.all(
-                                    //    Radius.circular(9.0))),
                                     prefixIcon: Icon(
                                       Icons.email,
                                       color: secondColor,
@@ -145,9 +140,6 @@ class _LoginState extends State<Login> {
                                         color: Colors.white, fontSize: 22),
                                   ),
                                   onPressed: () {
-                                    // if (_formkey.currentState!.validate()) {
-                                    //  print('form submiitted');
-                                    //  }
 
                                     ApiDataProvider().login(login, password);
                                     Future.delayed(Duration(seconds: 1), () {

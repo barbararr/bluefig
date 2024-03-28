@@ -169,20 +169,7 @@ class _DesktopPatientLastRecordsPagePatientState
             ),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: /*categories
-                  .map((category) => ChoiceChip(
-                      label: Text(category),
-                      selected: selectedCategory == category,
-                      onSelected: (isSelected) {
-                        setState(() {
-                          if (isSelected) {
-                            selectedCategory = category;
-                          } else {
-                            selectedCategory = '';
-                          }
-                        });
-                      }))
-                  .toList(),*/
+                children:
                     getChoiceChips()),
             Flexible(
               child: Padding(

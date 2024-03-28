@@ -22,47 +22,8 @@ class _LastRecordsExpansionTileState extends State<LastRecordsExpansionTile> {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> records = [
-      {
-        "id": "2024-03-10 Антропометрия",
-        "name": "Запись 2024-03-10 Антропометрия",
-        "detail": "Параметры: \n Вес: 50 \n Рост: 165 \n Окружность плеча: 20"
-      },
-      {
-        "id": "2024-03-03 Антропометрия",
-        "name": "Запись 2024-03-03 Антропометрия",
-        "detail": "Параметры: \n Вес: 49 \n Рост: 165 \n Окружность плеча: 20"
-      },
-    ];
-
-    List<Map<String, dynamic>> newrecords = [
-      {
-        "id": "2024-03-21 Гастроинтестинальные симптомы",
-        "name": "Запись 2024-03-21 Гастроинтестинальные симптомы",
-        "detail":
-            "Параметры: \n Тошнота: до еды, после еды \n Рвота: нет \n Аппетит: обычный \n Кожная сыпь: нет"
-      },
-      {
-        "id": "2024-03-21 Антропометрия",
-        "name": "Запись 2024-03-21 Антропометрия",
-        "detail": "Параметры: \n Вес: 52 \n Рост: 165 \n Окружность плеча: 20"
-      },
-      {
-        "id": "2024-03-10 Антропометрия",
-        "name": "Запись 2024-03-10 Антропометрия",
-        "detail": "Параметры: \n Вес: 50 \n Рост: 165 \n Окружность плеча: 20"
-      },
-      {
-        "id": "2024-03-03 Антропометрия",
-        "name": "Запись 2024-03-03 Антропометрия",
-        "detail": "Параметры: \n Вес: 49 \n Рост: 165 \n Окружность плеча: 20"
-      },
-    ];
-    List<Map<String, dynamic>> lastRecods;
-    if (globals.addNew)
-      lastRecods = newrecords;
-    else
-      lastRecods = records;
+    
+    List<Map<String, dynamic>> lastRecods = [];
     return ListView.builder(
       shrinkWrap: true,
       itemCount: lastRecods.length,

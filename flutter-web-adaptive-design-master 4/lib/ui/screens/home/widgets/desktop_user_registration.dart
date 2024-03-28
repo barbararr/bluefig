@@ -93,12 +93,11 @@ class _RegistrationState extends State<Registration> {
 
   RegExp regExp = new RegExp(
     r"^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$",
-    //r'^(0[1-9]|1[012])[-/.](0[1-9]|[12][0-9]|3[01])[-/.](19|20)\\d\\d$'
+    
     caseSensitive: true,
     multiLine: false,
   );
 
-  //String errorText = "";
 
   var _controller = TextEditingController();
 
@@ -137,21 +136,6 @@ class _RegistrationState extends State<Registration> {
     }
   }
 
-  String? get _errorText {
-    // at any time, we can get the text from _controller.value.text
-    var text = _controller.value.text;
-    // Note: you can do your own custom validation here
-    // Move this logic this outside the widget for more testable code
-    if (text.isEmpty) {
-      return 'Can\'t be empty';
-    }
-    if (text.length < 4) {
-      return 'Too short';
-    }
-
-    // return null if the text is valid
-    return null;
-  }
 
   bool isValid = true;
   String errorMessage = "";
@@ -217,32 +201,6 @@ class _RegistrationState extends State<Registration> {
                               Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: TextFormField(
-                                      //controller: _controller,
-                                      /*validator: ((value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'please enter some text';
-                                        } else if (listOfElements[i] ==
-                                                "email" &&
-                                            !RegExp(
-                                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-                                            ).hasMatch(value)) {
-                                          errorText =
-                                              "please enter a valid email";
-                                        } else if (listOfElements[i] ==
-                                                "birthday" &&
-                                            (value.length < 10 ||
-                                                !RegExp(r'^[0-9-]+$')
-                                                    .hasMatch(value))) {
-                                          errorText =
-                                              "please enter a valid birthday: yyyy-mm-dd";
-                                        } else if (listOfElements[i] == "sex" &&
-                                            (value != "F" || value != "M")) {
-                                          errorText =
-                                              "please enter a valid sex: F/M";
-                                        }
-                                        return "null";
-                                      }),*/
-                                      //keyboardType: listOfElements[i] == "birthday"? TextInputType.number:,
                                       inputFormatters:
                                           listOfElements[i] == "birthday"
                                               ? [DateTextFormatter()]
@@ -261,8 +219,6 @@ class _RegistrationState extends State<Registration> {
                                         });
                                       },
 
-                                      //onTap: ,
-                                      //userData[listOfElements[i]] = value),
                                       cursorColor: secondColor,
                                       decoration: InputDecoration(
                                         focusedBorder: const OutlineInputBorder(
@@ -273,21 +229,12 @@ class _RegistrationState extends State<Registration> {
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10)),
                                         ),
-                                        //errorText:
-                                        // isValid ? null : errorMessage,
                                         hintText: listOfElements[i],
                                         labelText: listOfElements[i],
-                                        //focusedBorder: OutlineInputBorder(
-                                        //  borderSide:
-                                        //     BorderSide(color: firstColor),
-                                        //  borderRadius: BorderRadius.all(
-                                        //    Radius.circular(9.0))),
                                         hintStyle: TextStyle(
                                             fontSize: 16.0, color: secondColor),
                                         labelStyle: TextStyle(
                                             fontSize: 16.0, color: secondColor),
-                                        //errorStyle: TextStyle(
-                                        //fontSize: 18.0, color: Colors.red),
                                         border: OutlineInputBorder(
                                             borderSide:
                                                 BorderSide(color: secondColor),
@@ -305,12 +252,6 @@ class _RegistrationState extends State<Registration> {
                                           color: Colors.white, fontSize: 22),
                                     ),
                                     onPressed: () {
-                                      // if (_formkey.currentState!.validate()) {
-                                      //  print('form submiitted');
-                                      //  }
-                                      /*Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) =>
-                                              ((DesktopPatientListPageDoctor()))));*/
                                       log(userData.toString());
                                       registerUser();
                                     },

@@ -21,49 +21,13 @@ class _ReplyExpansionTileState extends State<ReplyExpansionTile> {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> records = [
-      {
-        "id": "2024-03-10",
-        "name": "Ответ 2024-03-10",
-        "detail": "Добавьте больше белка в рацион"
-      },
-      {
-        "id": "2024-03-03",
-        "name": "Ответ 2024-03-03",
-        "detail": "Продолжайте следовать рекомендациям"
-      },
-    ];
-
-    List<Map<String, dynamic>> newrecords = [
-      {
-        "id": "2024-03-21",
-        "name": "Ответ 2024-03-21",
-        "detail": "Продолжайте следовать рекомендациям"
-      },
-      {
-        "id": "2024-03-10",
-        "name": "Ответ 2024-03-10",
-        "detail": "Добавьте больше белка в рацион"
-      },
-      {
-        "id": "2024-03-03",
-        "name": "Ответ 2024-03-03 ",
-        "detail": "Продолжайте следовать рекомендациям"
-      },
-    ];
-    List<Map<String, dynamic>> lastRecods = newrecords;
-    if (globals.addNewRecomendation)
-      lastRecods = newrecords;
-    else
-      lastRecods = records;
+    List<Map<String, dynamic>> lastRecods = [];
     return ListView.builder(
       shrinkWrap: true,
       itemCount: lastRecods.length,
       itemBuilder: (_, index) {
         final item = lastRecods[index];
         return Card(
-          //Remember
-          //Here key is required to save and restore ExpansionTile expanded state
           key: PageStorageKey(item['id']),
 
           child: ExpansionTile(
@@ -75,7 +39,6 @@ class _ReplyExpansionTileState extends State<ReplyExpansionTile> {
             title: Text(item['name']),
             textColor: firstColor,
             iconColor: firstColor,
-            // Expanded Contents
             children: [
               ListTile(
                   leading: const CircleAvatar(

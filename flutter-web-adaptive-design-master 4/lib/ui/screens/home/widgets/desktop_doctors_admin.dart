@@ -47,17 +47,11 @@ class _DesktopDoctorsListPageAdminState
   }
 
   String getDoctorsName(int index) {
-    //if (patients[index].fathername != null) {
-    // return patients[index].lastname +
-    //     patients[index].firstname +
-    // patients[index].fathername;
-    // } else {
     return doctors[index].lastname +
         " " +
         doctors[index].firstname +
         " " +
         doctors[index].fathername;
-    // }
   }
 
   @override
