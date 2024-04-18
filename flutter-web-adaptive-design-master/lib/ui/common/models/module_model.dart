@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:intl/intl.dart';
 
+import 'doctor_parameter_model.dart';
 import 'parameter_model.dart';
 
 ModuleModel moduleModelFromJson(String str) {
@@ -53,6 +54,7 @@ class ModuleModel {
   String questionaryId;
   int frequency;
   List<ParameterModel> parameterList;
+  List<DoctorParameterModel> doctorParameterList = [];
 
   factory ModuleModel.fromJson(Map<String, dynamic> json) {
     //print(parameterModelListFromJson(json["parameterList"]));
@@ -68,11 +70,9 @@ class ModuleModel {
   String parametersToString() {
     String str = "";
     for (var i = 0; i < parameterList.length; i++) {
-      if (parameterList[i].name != "Стул") {
-        str += parameterList[i].name;
-        if (i != parameterList.length - 1) {
-          str += ", ";
-        }
+      str += parameterList[i].name;
+      if (i != parameterList.length - 1) {
+        str += ", ";
       }
     }
     return str;

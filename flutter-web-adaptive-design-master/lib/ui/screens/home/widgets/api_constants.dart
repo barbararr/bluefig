@@ -15,4 +15,7 @@ class ApiConstants {
   static String sendModuleData = ' /moduleFillIn';
   static String getRecommendations = '/recommendation/';
   static String sendRecommendation = '/recommendation';
+  static String getDoctorParameters = '/doctorParameters/';
+  static String getDoctorParametersLabels = '/doctorParametersLabels/';
+  static String getFormula = '/formula';
 }

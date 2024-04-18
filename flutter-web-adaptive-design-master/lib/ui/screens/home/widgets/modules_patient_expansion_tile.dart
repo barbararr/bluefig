@@ -28,7 +28,7 @@ class _ModulesPatientExpansionTileState
   List<String> selectedValues = [];
   List<GastroLabelModel> lables = [];
 
-  void addModule(int id) {
+  /*void addModule(int id) {
     setState(() {
       ApiDataProvider().giveModuleToPatient(globals.currentPatientID,
           globals.user!.id, modules[id].id, frequency);
@@ -36,7 +36,7 @@ class _ModulesPatientExpansionTileState
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         duration: const Duration(milliseconds: 600),
         content: Text('Модуль назначен')));
-  }
+  }*/
 
   void getModulesToPrint() {
     for (var i = 0; i < modules.length; i++) {
@@ -118,6 +118,7 @@ class _ModulesPatientExpansionTileState
 
   List<Widget> buildModuleInput(int index) {
     List<Widget> fields = [];
+    // todo убрать
     if (!globals.addNewRecomendation) {
       for (var i = 0; i < modules[index].parameterList.length; i++) {
         ParameterModel current = modules[index].parameterList[i];
@@ -315,13 +316,18 @@ class _ModulesPatientExpansionTileState
       for (var j = 0; j < modules[i].parameterList.length; j++) {
         if (modules[i].parameterList[j].dataType == "datalist" ||
             modules[i].parameterList[j].dataType == "select") {
-          List<GastroLabelModel> lables = (await ApiDataProvider()
-              .getGastroLables(modules[i].parameterList[j].id));
-          List<String> names = [];
-          for (var i = 0; i < lables.length; i++) {
-            names.add(lables[i].name);
+          if (modules[i].parameterList[j].name == "Наименование смеси") {
+            modules[i].parameterList[j].options =
+                (await ApiDataProvider().getFormula());
+          } else {
+            List<GastroLabelModel> lables = (await ApiDataProvider()
+                .getGastroLables(modules[i].parameterList[j].id));
+            List<String> names = [];
+            for (var i = 0; i < lables.length; i++) {
+              names.add(lables[i].name);
+            }
+            modules[i].parameterList[j].options = names;
           }
-          modules[i].parameterList[j].options = names;
         }
       }
     }

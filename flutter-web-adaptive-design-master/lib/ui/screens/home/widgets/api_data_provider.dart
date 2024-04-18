@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:developer';
+import 'package:adaptive_design/ui/common/models/doctor_parameter_label_model.dart';
 import 'package:adaptive_design/ui/common/models/gastro_label_model.dart';
 import 'package:adaptive_design/ui/common/models/module_model.dart';
 import 'package:adaptive_design/ui/common/models/module_with_parameters.dart';
@@ -8,9 +9,11 @@ import 'package:adaptive_design/ui/common/models/notification_model.dart';
 import 'package:adaptive_design/ui/common/models/recomendation_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import '../../../common/models/doctor_parameter_model.dart';
 import '../../../common/models/user_model.dart';
 import 'api_constants.dart';
 import '../../../common/globals.dart' as globals;
+import 'dart:convert';
 
 class ApiDataProvider {
   Future<UserModel> getUser(String id) async {
@@ -170,14 +173,15 @@ class ApiDataProvider {
     }
   }
 
-  void giveModuleToPatient(
-      String patientId, String doctorId, String moduleId, int frequency) async {
+  void giveModuleToPatient(String patientId, String doctorId, String moduleId,
+      int frequency, String doctorParameters) async {
     try {
       Map<String, Object> data = {
         "\"patientId\"": "\"$patientId\"",
         "\"doctorId\"": "\"$doctorId\"",
         "\"moduleId\"": "\"$moduleId\"",
         "\"frequency\"": frequency,
+        "\"doctorParametersFillIn\"": doctorParameters
       };
       print(data.toString());
       var url =
@@ -429,6 +433,84 @@ class ApiDataProvider {
       } else {}
     } catch (e) {
       log(e.toString());
+    }
+  }
+
+  Future<List<DoctorParameterModel>> getDoctorParameters(String id) async {
+    try {
+      var url = Uri.parse(
+          ApiConstants.baseUrl + ApiConstants.getDoctorParameters + id);
+      var response = await http.get(url, headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      });
+      log(response.statusCode.toString() + "\n");
+      print(response.body);
+      if (response.statusCode == 200) {
+        String source = utf8.decode(response.bodyBytes);
+        print(source);
+        List<DoctorParameterModel> lables =
+            doctorParameterModelListFromJson(source);
+        return lables;
+      } else {
+        //return null;
+        throw Exception();
+      }
+    } catch (e) {
+      log(e.toString() + "nen");
+      //return null;
+      throw Exception();
+    }
+  }
+
+  Future<List<DoctorParameterLabelModel>> getDoctorParametersLabels(
+      String id) async {
+    try {
+      var url = Uri.parse(
+          ApiConstants.baseUrl + ApiConstants.getDoctorParametersLabels + id);
+      var response = await http.get(url, headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      });
+      log(response.statusCode.toString() + "\n");
+      print(response.body);
+      if (response.statusCode == 200) {
+        String source = utf8.decode(response.bodyBytes);
+        print(source);
+        List<DoctorParameterLabelModel> lables =
+            doctorParameterLabelModelListFromJson(source);
+        return lables;
+      } else {
+        //return null;
+        throw Exception();
+      }
+    } catch (e) {
+      log(e.toString() + "nen");
+      //return null;
+      throw Exception();
+    }
+  }
+
+  Future<List<String>> getFormula() async {
+    try {
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.getFormula);
+      var response = await http.get(url, headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      });
+      log(response.statusCode.toString() + "\n");
+      print(response.body);
+      if (response.statusCode == 200) {
+        log("slovo");
+        String source = utf8.decode(response.bodyBytes);
+        print(source);
+        List<String> formula = jsonDecode(source).cast<String>().toList();
+        return formula;
+      } else {
+        //return null;
+        throw Exception();
+      }
+    } catch (e) {
+      log(e.toString() + "nen");
+      //return null;
+      throw Exception();
     }
   }
 }
