@@ -50,11 +50,12 @@ class _ModulesPatientExpansionTileState
 
   void getLables(String id) async {
     lables = (await ApiDataProvider().getGastroLables(id));
-    Future.delayed(const Duration(milliseconds: 100))
-        .then((value) => setState(() {}));
+    /*Future.delayed(const Duration(milliseconds: 100))
+        .then((value) => setState(() {}));*/
+    Future.delayed(const Duration(milliseconds: 100));
   }
 
-  List<List<String>> list_names = [];
+  /*List<List<String>> list_names = [];
   List<List<String>> list_selected_values = [];
   List<String> apetit = [
     "обычный",
@@ -93,7 +94,7 @@ class _ModulesPatientExpansionTileState
     "Рыхлые, мягкие пушистые комочки с рваными краями",
     "Водянистый без твёрдых кусочков"
   ];
-  bool _isChecked = false;
+  bool _isChecked = false;*/
   //List<Widget> buildChoices() {}
 
   void sendModuleData(
@@ -136,6 +137,7 @@ class _ModulesPatientExpansionTileState
                   modules[index].parameterList[i].value = value,
               cursorColor: secondColor,
               decoration: InputDecoration(
+                labelText: modules[index].parameterList[i].description,
                 focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
                     color: fourthColor,
@@ -150,15 +152,16 @@ class _ModulesPatientExpansionTileState
             ),
           ));
         }
-        var result;
+        // var result;
         if (current.dataType == "switch") {
+          modules[index].parameterList[i].value = "нет";
           row_widgets.add(StatefulBuilder(builder: (context, setState) {
             return Checkbox(
-                value: _isChecked,
+                value: modules[index].parameterList[i].isChecked,
                 onChanged: (value) {
                   setState(() {
-                    _isChecked = value!;
-                    if (_isChecked) {
+                    modules[index].parameterList[i].isChecked = value!;
+                    if (modules[index].parameterList[i].isChecked) {
                       modules[index].parameterList[i].value = "есть";
                     } else {
                       modules[index].parameterList[i].value = "нет";
@@ -169,7 +172,29 @@ class _ModulesPatientExpansionTileState
           //row_widgets.add(Text("есть"));
         }
         if (current.dataType == "datalist" || current.dataType == "select") {
-          if (modules[index].parameterList[i].name == "Аппетит") {
+          /*getLables(current.id);
+          List<String> names = [];
+          for (var i = 0; i < lables.length; i++) {
+            names.add(lables[i].name);
+          }
+          List<String> selected_names = [];*/
+
+          row_widgets.add(Expanded(
+            child: DropDownMultiSelect(
+              options: current.options,
+              selectedValues: current.selectedOptions,
+              onChanged: (value) {
+                print('выбрано $value');
+                setState(() {
+                  current.selectedOptions = value;
+                });
+                current.value = current.selectedOptions.toString();
+              },
+              whenEmpty: 'Выберите',
+            ),
+          ));
+
+          /*if (modules[index].parameterList[i].name == "Аппетит") {
             row_widgets.add(Expanded(
               child: DropDownMultiSelect(
                 options: apetit,
@@ -240,7 +265,7 @@ class _ModulesPatientExpansionTileState
                 whenEmpty: 'Выберите',
               ),
             ));
-          }
+          }*/
         }
         Row row = Row(
             //mainAxisSize: MainAxisSize.min,
@@ -286,6 +311,20 @@ class _ModulesPatientExpansionTileState
 
   void _getData() async {
     modules = (await ApiDataProvider().getPatientModules(globals.user!.id));
+    for (var i = 0; i < modules.length; i++) {
+      for (var j = 0; j < modules[i].parameterList.length; j++) {
+        if (modules[i].parameterList[j].dataType == "datalist" ||
+            modules[i].parameterList[j].dataType == "select") {
+          List<GastroLabelModel> lables = (await ApiDataProvider()
+              .getGastroLables(modules[i].parameterList[j].id));
+          List<String> names = [];
+          for (var i = 0; i < lables.length; i++) {
+            names.add(lables[i].name);
+          }
+          modules[i].parameterList[j].options = names;
+        }
+      }
+    }
     getModulesToPrint();
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }

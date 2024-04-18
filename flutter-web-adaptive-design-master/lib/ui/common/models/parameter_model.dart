@@ -69,6 +69,9 @@ class ParameterModel {
   String description;
   String moduleId;
   String value;
+  List<String> options = [];
+  List<String> selectedOptions = [];
+  bool isChecked = false;
 
   factory ParameterModel.fromJson(Map<String, dynamic> json) {
     return ParameterModel(
