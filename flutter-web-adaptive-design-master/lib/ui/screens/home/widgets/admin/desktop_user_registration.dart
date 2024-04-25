@@ -72,7 +72,6 @@ class _RegistrationState extends State<Registration> {
         password: userData['password'].toString(),
         roleId: userData['roleId'].toString(),
         birthday: userData['birthday'].toString(),
-        //birthday: DateTime(2022, 2, 2),
         sex: userData['sex'].toString());
     bool completed = ApiDataProvider().createUser(userModel) as bool;
     if (completed == false) {

@@ -5,6 +5,7 @@ import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_patient_
 import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_patient_last_records.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patients_list_doctor.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/log_in_page.dart';
+import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_statistics_patient.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -107,6 +108,11 @@ class _DesktopMainPatientPagePatientState
                   if (selectedCategory == 'Добавить запись') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => (DesktopModulesPagePatient())));
+                  }
+                  if (selectedCategory == 'Статистика') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (DesktopStatisticsPatientPagePatient())));
                   }
                 });
               }),

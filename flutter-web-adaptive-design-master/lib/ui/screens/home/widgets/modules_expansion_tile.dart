@@ -32,7 +32,7 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
 
   List<ModuleModel> modules = [];
 
-  void addModule(int id) {
+  void addModule(int id) async {
     String json = "[";
 
     for (var i = 0; i < modules[id].doctorParameterList.length; i++) {
@@ -47,13 +47,20 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
     print(json);
 
     for (var i = 0; i < modules[id].doctorParameterList.length; i++) {}
-    setState(() {
-      ApiDataProvider().giveModuleToPatient(globals.currentPatientID,
-          globals.user!.id, modules[id].id, int.parse(frequency), json);
-    });
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        duration: const Duration(milliseconds: 600),
-        content: Text('Модуль назначен')));
+    //setState(() async {
+    if (!(await ApiDataProvider().giveModuleToPatient(globals.currentPatientID,
+        globals.user!.id, modules[id].id, frequency, json)))
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Проверьте корректность введенных значений!'),
+        backgroundColor: Colors.red,
+      ));
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(milliseconds: 600),
+          content: Text('Модуль назначен')));
+    }
+
+    //);
   }
 
   void getModulesToPrint() {

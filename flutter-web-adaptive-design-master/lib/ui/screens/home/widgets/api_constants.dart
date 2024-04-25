@@ -18,4 +18,9 @@ class ApiConstants {
   static String getDoctorParameters = '/doctorParameters/';
   static String getDoctorParametersLabels = '/doctorParametersLabels/';
   static String getFormula = '/formula';
+  static String getCategories = '/productGroup';
+  static String getProducts = '/products';
+  static String getStatistics = '/statistics/';
+  static String getSortedPatients = '/patientsHierarchy/';
+  static String sendFoodData = '/patientsHierarchy/';
 }

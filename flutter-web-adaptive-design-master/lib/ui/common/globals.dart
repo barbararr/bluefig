@@ -19,3 +19,5 @@ String currentDoctorID = "";
 bool addNew = false;
 
 bool addNewRecomendation = false;
+
+String questtionaryID = "";

@@ -24,6 +24,8 @@ class DesktopPatientListPageDoctor extends StatefulWidget {
 class _DesktopPatientListPageDoctorState
     extends State<DesktopPatientListPageDoctor> {
   List<UserModel> patients = [];
+  List<UserModel> allPatients = [];
+  List<UserModel> sortedPatients = [];
 
   @override
   void initState() {
@@ -32,23 +34,33 @@ class _DesktopPatientListPageDoctorState
   }
 
   void _getData() async {
-    patients = await ApiDataProvider().getPatientsDoctor(globals.user!.id);
+    allPatients = await ApiDataProvider().getPatientsDoctor(globals.user!.id);
+    sortedPatients =
+        await ApiDataProvider().getSortedPatientsDoctor(globals.user!.id);
+    patients = allPatients;
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
+  List<String> categories = [
+    'Все пациенты',
+    'Срочные',
+  ];
+
+  String selectedCategory = '';
+
   void patientIdProfile(int index) {
-    globals.currentPatientID = patients[index].id;
+    globals.currentPatientID = allPatients[index].id;
     // go to patients profile with this id
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => (DesktopMainPatientPageDoctor())));
   }
 
   String getPatientsName(int index) {
-    return patients[index].lastname +
+    return allPatients[index].lastname +
         " " +
-        patients[index].firstname +
+        allPatients[index].firstname +
         " " +
-        patients[index].fathername;
+        allPatients[index].fathername;
   }
 
   @override
@@ -74,6 +86,34 @@ class _DesktopPatientListPageDoctorState
                   ),
                 ),
               ],
+            ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: categories
+                    .map(
+                      (category) => ChoiceChip(
+                          label: Text(category),
+                          selected: selectedCategory == category,
+                          onSelected: (isSelected) {
+                            setState(() {
+                              if (isSelected) {
+                                selectedCategory = category;
+                              } else {
+                                selectedCategory = '';
+                              }
+                              if (selectedCategory == 'Все пациенты') {
+                                patients = allPatients;
+                              }
+                              if (selectedCategory == 'Срочные') {
+                                patients = sortedPatients;
+                              }
+                            });
+                          }),
+                    )
+                    .toList()),
+            SizedBox(
+              width: 20,
+              height: 20,
             ),
             ListView.builder(
               shrinkWrap: true,

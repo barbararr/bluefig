@@ -1,11 +1,13 @@
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:developer';
+import 'package:adaptive_design/ui/common/models/category_model.dart';
 import 'package:adaptive_design/ui/common/models/doctor_parameter_label_model.dart';
 import 'package:adaptive_design/ui/common/models/gastro_label_model.dart';
 import 'package:adaptive_design/ui/common/models/module_model.dart';
 import 'package:adaptive_design/ui/common/models/module_with_parameters.dart';
 import 'package:adaptive_design/ui/common/models/notification_model.dart';
+import 'package:adaptive_design/ui/common/models/product_model.dart';
 import 'package:adaptive_design/ui/common/models/recomendation_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -49,23 +51,10 @@ class ApiDataProvider {
     return userModel;
   }
 
-  //Future<UserModel?> createUser() async {
   Future<bool> createUser(UserModel userModel) async {
     try {
       DateFormat dateFormat = DateFormat("yyyy-MM-dd");
       var formatter = new DateFormat('yyyy-MM-dd');
-
-      /*UserModel userModel = UserModel(
-          //id: '2',
-          username: '2',
-          firstname: '2',
-          lastname: '2',
-          fathername: '2',
-          email: '2',
-          password: '2',
-          roleId: '49e6f33b-b4bb-11ee-8c0c-00f5f80cf8ae',
-          birthday: DateTime(2024, 3, 13),
-          sex: '2');*/
 
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.usersEndpoint);
 
@@ -73,9 +62,7 @@ class ApiDataProvider {
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
-          body: userModelToJson(userModel)
-          //"{\"id\": \"2\", \"username\": \"2\", \"firstname\": \"2\", \"lastname\": \"2\", \"fathername\": \"2\", \"email\": \"2\", \"passwordHash\": \"2\", \"roleId\": \"49e6f33b-b4bb-11ee-8c0c-00f5f80cf8ae\", \"birthday\": \"2024-03-13 00:00:00.000\", \"sex\": \"2\"}",
-          );
+          body: userModelToJson(userModel));
       log(userModel.toJson().toString());
       print(userModel.toJson().toString());
       log(response.statusCode.toString() + "\n");
@@ -147,6 +134,28 @@ class ApiDataProvider {
     }
   }
 
+  Future<List<UserModel>> getSortedPatientsDoctor(String doctorId) async {
+    try {
+      var url = Uri.parse(
+          ApiConstants.baseUrl + ApiConstants.getSortedPatients + doctorId);
+      var response = await http.get(url);
+      log(response.statusCode.toString() + "\n");
+      print(response.body);
+      if (response.statusCode == 200) {
+        String source = utf8.decode(response.bodyBytes);
+        List<UserModel> patients = userModelListFromJson(source);
+        return patients;
+      } else {
+        //return null;
+        throw Exception();
+      }
+    } catch (e) {
+      log(e.toString());
+      //return null;
+      throw Exception();
+    }
+  }
+
   Future<List<ModuleModel>> getAllModules() async {
     try {
       var url =
@@ -173,14 +182,14 @@ class ApiDataProvider {
     }
   }
 
-  void giveModuleToPatient(String patientId, String doctorId, String moduleId,
-      int frequency, String doctorParameters) async {
+  Future<bool> giveModuleToPatient(String patientId, String doctorId,
+      String moduleId, String frequency, String doctorParameters) async {
     try {
       Map<String, Object> data = {
         "\"patientId\"": "\"$patientId\"",
         "\"doctorId\"": "\"$doctorId\"",
         "\"moduleId\"": "\"$moduleId\"",
-        "\"frequency\"": frequency,
+        "\"frequency\"": int.parse(frequency),
         "\"doctorParametersFillIn\"": doctorParameters
       };
       print(data.toString());
@@ -195,9 +204,13 @@ class ApiDataProvider {
       log(response.statusCode.toString() + "\n");
       print(response.body);
       if (response.statusCode == 200) {
-      } else {}
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       log(e.toString());
+      return false;
     }
   }
 
@@ -317,7 +330,7 @@ class ApiDataProvider {
     }
   }
 
-  void linkPatientDoctor(String patientId, String doctorId) async {
+  Future<bool> linkPatientDoctor(String patientId, String doctorId) async {
     try {
       Map<String, Object> data = {
         "\"patientId\"": "\"$patientId\"",
@@ -339,13 +352,17 @@ class ApiDataProvider {
       log(response.statusCode.toString() + "\n");
       print(response.body);
       if (response.statusCode == 200) {
-      } else {}
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       log(e.toString());
+      return false;
     }
   }
 
-  void sendModuleData(String data) async {
+  Future<bool> sendModuleData(String data) async {
     try {
       print(data.toString());
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.sendModuleData);
@@ -358,9 +375,13 @@ class ApiDataProvider {
       log(response.statusCode.toString() + "\n");
       print(response.body);
       if (response.statusCode == 200) {
-      } else {}
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       log(e.toString());
+      return false;
     }
   }
 
@@ -416,7 +437,7 @@ class ApiDataProvider {
     }
   }
 
-  void sendRecommendation(String data) async {
+  Future<bool> sendRecommendation(String data) async {
     try {
       print(data.toString());
       var url =
@@ -430,9 +451,13 @@ class ApiDataProvider {
       log(response.statusCode.toString() + "\n");
       print(response.body);
       if (response.statusCode == 200) {
-      } else {}
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       log(e.toString());
+      return false;
     }
   }
 
@@ -511,6 +536,110 @@ class ApiDataProvider {
       log(e.toString() + "nen");
       //return null;
       throw Exception();
+    }
+  }
+
+  Future<List<CategoryModel>> getCategories() async {
+    try {
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.getCategories);
+      var response = await http.get(url, headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      });
+      log(response.statusCode.toString() + "\n");
+      print(response.body);
+      if (response.statusCode == 200) {
+        log("slovo");
+        String source = utf8.decode(response.bodyBytes);
+        print(source);
+        List<CategoryModel> categories = categoryModelListFromJson(source);
+        return categories;
+      } else {
+        //return null;
+        throw Exception();
+      }
+    } catch (e) {
+      log(e.toString() + "nen");
+      //return null;
+      throw Exception();
+    }
+  }
+
+  Future<List<ProductModel>> getProducts() async {
+    try {
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.getProducts);
+      var response = await http.get(url, headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      });
+      log(response.statusCode.toString() + "\n");
+      print(response.body);
+      if (response.statusCode == 200) {
+        log("slovo");
+        String source = utf8.decode(response.bodyBytes);
+        print(source);
+        List<ProductModel> products = productModelListFromJson(source);
+        return products;
+      } else {
+        //return null;
+        throw Exception();
+      }
+    } catch (e) {
+      log(e.toString() + "nen");
+      //return null;
+      throw Exception();
+    }
+  }
+
+  Future<Map<String, dynamic>> getStatisctics(
+      String moduleId, String patientId) async {
+    try {
+      var url = Uri.parse(ApiConstants.baseUrl +
+          ApiConstants.getStatistics +
+          moduleId +
+          "/" +
+          patientId);
+      var response = await http.get(url, headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      });
+      log(response.statusCode.toString() + "\n");
+      print(response.body);
+      if (response.statusCode == 200) {
+        log("slovo");
+        String source = utf8.decode(response.bodyBytes);
+        print(source);
+        Map<String, dynamic> map = json.decode(source);
+        return map;
+      } else {
+        //return null;
+        throw Exception();
+      }
+    } catch (e) {
+      log(e.toString() + "nen");
+      //return null;
+      throw Exception();
+    }
+  }
+
+  Future<bool> sendFoodData(String data) async {
+    try {
+      print(data.toString());
+      var url =
+          Uri.parse(ApiConstants.baseUrl + ApiConstants.sendRecommendation);
+      var response = await http.post(url,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: data.toString());
+      print(data.toString());
+      log(response.statusCode.toString() + "\n");
+      print(response.body);
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      log(e.toString());
+      return false;
     }
   }
 }

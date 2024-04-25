@@ -15,6 +15,7 @@ import 'desktop_patient_doctor.dart';
 import '../patient/desktop_replies_page.dart';
 import '../log_in_page.dart';
 import '../../../../common/globals.dart' as globals;
+import 'desktop_statistics_doctor.dart';
 
 class DesktopRecomendationPageDoctor extends StatefulWidget {
   const DesktopRecomendationPageDoctor({Key? key}) : super(key: key);
@@ -64,19 +65,29 @@ class _DesktopRecomendationPageDoctorState
                         builder: (context) =>
                             (DesktopPatientLastRecordsPageDoctor())));
                   }
+                  if (selectedCategory == 'Статистика') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (DesktopStatisticsDoctorPagePatient())));
+                  }
                 });
               }),
         )
         .toList();
   }
 
-  void sendRecomendationData(String recommendation) {
+  Future<void> sendRecomendationData(String recommendation) async {
     String patientId = globals.currentPatientID;
     String doctorId = globals.user!.id;
     String json =
         "{\"patientId\": \"$patientId\", \"doctorId\": \"$doctorId\", \"recommendation\": \"$recommendation\"}";
     print(json);
-    ApiDataProvider().sendRecommendation(json);
+    if (!(await ApiDataProvider().sendRecommendation(json)))
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Произошла ошибка!'),
+        backgroundColor: Colors.red,
+      ));
+    ;
   }
 
   Map userData = {};

@@ -7,6 +7,7 @@ import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patients_
 import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_user_registration.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/log_in_page.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/mobile_home_page.dart';
+import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_statistics_patient.dart';
 import 'package:adaptive_design/ui/widgets/adaptive_page_builder.dart';
 import 'package:flutter/material.dart';
 

@@ -56,7 +56,10 @@ class _LastRecordsExpansionTileState extends State<LastRecordsExpansionTile> {
       Map<String, dynamic> recordString = {};
       recordString.addAll({
         "id": modules[i].dateTime + " " + modules[i].name,
-        "name": "Запись " + modules[i].dateTime + " " + modules[i].name,
+        "name": "Запись " +
+            modules[i].dateTime.replaceAll('T', ' ') +
+            " " +
+            modules[i].name,
         "detail": "Параметры: \n" + parameters
       });
       records.add(recordString);

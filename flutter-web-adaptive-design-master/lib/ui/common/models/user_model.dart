@@ -33,25 +33,12 @@ class UserModel {
     required this.sex,
   });
 
-  /*UserModel(Map<String, String> userData) {
-    username = userData['username'].toString();
-    firstname = userData['firstname'].toString();
-    lastname = userData['lastname'].toString();
-    fathername = userData['fathername'].toString();
-    email = userData['email'].toString();
-    password = userData['password'].toString();
-    roleId = userData['roleId'].toString();
-    birthday = userData['birthday'].toString();
-    sex = userData['sex'].toString();
-  }*/
-
   String id = "";
   String username;
   String firstname;
   String lastname;
   String email;
   String birthday;
-  //DateTime birthday;
   String sex;
   String password;
   String fathername;
@@ -68,7 +55,6 @@ class UserModel {
       email: json["email"],
       password: json["passwordHash"],
       roleId: json["roleId"],
-      //birthday: dateFormat.parse(json["birthday"]),
       birthday: json["birthday"],
       sex: json["sex"],
     );

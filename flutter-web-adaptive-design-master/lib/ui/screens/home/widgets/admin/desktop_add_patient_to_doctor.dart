@@ -38,10 +38,14 @@ class _DesktopAddPatientToDoctorState extends State<DesktopAddPatientToDoctor> {
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
-  void linkPatientToDoctor(int index) {
+  Future<void> linkPatientToDoctor(int index) async {
     // go to patients profile with this id
-    ApiDataProvider()
-        .linkPatientDoctor(patients[index].id, globals.currentDoctorID);
+    if (!(await ApiDataProvider()
+        .linkPatientDoctor(patients[index].id, globals.currentDoctorID)))
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Ошибка! Проверьте корректность введенных значений!'),
+        backgroundColor: Colors.red,
+      ));
   }
 
   String getPatientName(int index) {

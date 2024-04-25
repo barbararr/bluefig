@@ -5,6 +5,7 @@ import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_doctor_re
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_last_records_doctor.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_modules_doctor.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patients_list_doctor.dart';
+import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_statistics_doctor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -124,6 +125,11 @@ class _DesktopMainPatientPageDoctorState
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             (DesktopRecomendationPageDoctor())));
+                  }
+                  if (selectedCategory == 'Статистика') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (DesktopStatisticsDoctorPagePatient())));
                   }
                 });
               }),

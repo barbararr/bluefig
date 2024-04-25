@@ -1,10 +1,14 @@
 import 'dart:html';
 
 import 'package:adaptive_design/ui/common/app_colors.dart';
+import 'package:adaptive_design/ui/common/models/category_model.dart';
 import 'package:adaptive_design/ui/common/models/gastro_label_model.dart';
 import 'package:adaptive_design/ui/common/models/module_model.dart';
 import 'package:adaptive_design/ui/common/models/module_with_parameters.dart';
 import 'package:adaptive_design/ui/common/models/parameter_model.dart';
+import 'package:adaptive_design/ui/common/models/product_model.dart';
+import 'package:adaptive_design/ui/screens/home/widgets/drop_down_select.dart';
+import 'package:adaptive_design/ui/screens/home/widgets/food_diary_page.dart';
 import 'package:flutter/material.dart';
 import 'package:multiselect/multiselect.dart';
 
@@ -27,6 +31,10 @@ class _ModulesPatientExpansionTileState
   List<ModuleModel> modules = [];
   List<String> selectedValues = [];
   List<GastroLabelModel> lables = [];
+  Map<String, List<String>> categories = {};
+  List<String> selectedCategories = [];
+  List<String> selectedCProducts = [];
+  List<String> selectedWeights = [];
 
   /*void addModule(int id) {
     setState(() {
@@ -97,8 +105,8 @@ class _ModulesPatientExpansionTileState
   bool _isChecked = false;*/
   //List<Widget> buildChoices() {}
 
-  void sendModuleData(
-      String moduleID, String datetime, List<ParameterModel> parameterList) {
+  Future<void> sendModuleData(String moduleID, String datetime,
+      List<ParameterModel> parameterList) async {
     String datetime = DateTime.now().toString().replaceAll(" ", "T");
     String json =
         "{ \"questionaryId\": \"$moduleID\", \"datetime\": \"$datetime\", \"fillIn\": [";
@@ -113,17 +121,64 @@ class _ModulesPatientExpansionTileState
         json += "]}";
     }
     print(json);
-    ApiDataProvider().sendModuleData(json);
+
+    if (!(await ApiDataProvider().sendModuleData(json)))
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Проверьте корректность введенных значений!'),
+        backgroundColor: Colors.red,
+      ));
   }
+
+  /*void buildFood(String current_name) {
+    List<Widget> row_widgets = [];
+    row_widgets.add(Text(
+      "Категория: ",
+      style: TextStyle(color: Colors.black, fontSize: 15),
+    ));
+    row_widgets.add(Expanded(
+      child: DropDownMultiSelect(
+        options: current.options,
+        selectedValues: current.selectedOptions,
+        onChanged: (value) {
+          print('выбрано $value');
+          setState(() {
+            current.selectedOptions = value;
+          });
+          current.value = current.selectedOptions.toString();
+        },
+        whenEmpty: 'Выберите',
+      ),
+    ));
+  }*/
 
   List<Widget> buildModuleInput(int index) {
     List<Widget> fields = [];
-    // todo убрать
-    if (!globals.addNewRecomendation) {
+    List<Widget> row_widgets = [];
+    Row row_food;
+    if (modules[index].name == "Дневник питания") {
+      globals.questtionaryID = modules[index].questionaryId;
+      fields.add(Container(
+        child: RaisedButton(
+          child: Text(
+            'Добавить запись',
+            style: TextStyle(color: Colors.white, fontSize: 15),
+          ),
+          onPressed: () => {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => (DesktopFoodDiary())))
+          },
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          color: firstColor,
+        ),
+        width: MediaQuery.of(context).size.width / 5,
+        height: 25,
+      ));
+    } else {
       for (var i = 0; i < modules[index].parameterList.length; i++) {
         ParameterModel current = modules[index].parameterList[i];
         String current_name = current.name;
-        List<Widget> row_widgets = [];
+        row_widgets = [];
 
         row_widgets.add(Text(
           "$current_name: ",
@@ -195,25 +250,10 @@ class _ModulesPatientExpansionTileState
             ),
           ));
 
-          /*if (modules[index].parameterList[i].name == "Аппетит") {
-            row_widgets.add(Expanded(
-              child: DropDownMultiSelect(
-                options: apetit,
-                selectedValues: apetit_selected,
-                onChanged: (value) {
-                  print('selected $value');
-                  setState(() {
-                    apetit_selected = value;
-                  });
-                  current.value = apetit_selected.toString();
-                  modules[index].parameterList[i].value =
-                      apetit_selected.toString();
-                },
-                whenEmpty: 'Выберите',
-              ),
-            ));
-          }
-          if (modules[index].parameterList[i].name == "Тошнота") {
+          /*if (modules[index].parameterList[i].name == "Группа продуктов") {
+          row_widgets.add(Expanded(child: MyDropDownSelect()));
+        }*/
+          /*if (modules[index].parameterList[i].name == "Тошнота") {
             row_widgets.add(Expanded(
               child: DropDownMultiSelect(
                 options: toshnota,
@@ -268,6 +308,7 @@ class _ModulesPatientExpansionTileState
             ));
           }*/
         }
+        //if (modules[index].name != "Дневник питания") {
         Row row = Row(
             //mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -277,6 +318,33 @@ class _ModulesPatientExpansionTileState
           height: 10,
         ));
       }
+
+      /*if (modules[index].name == "Дневник питания") {
+      Row row = Row(
+          //mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: row_widgets);
+      fields.add(row);
+      fields.add(SizedBox(
+        height: 10,
+      ));
+      row_food = row;
+
+      fields.add(Container(
+        child: RaisedButton(
+          child: Text(
+            'Добавить продукт',
+            style: TextStyle(color: Colors.white, fontSize: 15),
+          ),
+          onPressed: () => setState(() => {fields.add(row_food)}),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          color: firstColor,
+        ),
+        width: MediaQuery.of(context).size.width / 5,
+        height: 25,
+      ));
+    }*/
       fields.add(SizedBox(
         height: 10,
       ));
@@ -313,21 +381,53 @@ class _ModulesPatientExpansionTileState
   void _getData() async {
     modules = (await ApiDataProvider().getPatientModules(globals.user!.id));
     for (var i = 0; i < modules.length; i++) {
-      for (var j = 0; j < modules[i].parameterList.length; j++) {
-        if (modules[i].parameterList[j].dataType == "datalist" ||
-            modules[i].parameterList[j].dataType == "select") {
-          if (modules[i].parameterList[j].name == "Наименование смеси") {
-            modules[i].parameterList[j].options =
-                (await ApiDataProvider().getFormula());
-          } else {
-            List<GastroLabelModel> lables = (await ApiDataProvider()
-                .getGastroLables(modules[i].parameterList[j].id));
-            List<String> names = [];
-            for (var i = 0; i < lables.length; i++) {
-              names.add(lables[i].name);
+      if (modules[i].name != "Дневник питания") {
+        for (var j = 0; j < modules[i].parameterList.length; j++) {
+          if (modules[i].parameterList[j].dataType == "datalist" ||
+              modules[i].parameterList[j].dataType == "select") {
+            if (modules[i].parameterList[j].name == "Наименование смеси") {
+              modules[i].parameterList[j].options =
+                  (await ApiDataProvider().getFormula());
+            } else {
+              if (modules[i].parameterList[j].name == "Группа продуктов") {
+                List<CategoryModel> cat =
+                    (await ApiDataProvider().getCategories());
+                List<String> catNames = [];
+                for (var k = 0; k < cat.length; k++) {
+                  catNames.add(cat[k].name);
+                  /* List<ProductModel> prod =
+                      (await ApiDataProvider().getProducts(cat[k].id));
+                  List<String> prodNames = [];
+                  for (var n = 0; n < prod.length; n++) {
+                    prodNames.add(prod[n].name);
+                  }
+                  categories.addAll({cat[k].name: prodNames});
+                  modules[i].parameterList[j].options = catNames;*/
+                }
+              }
+
+              List<GastroLabelModel> lables = (await ApiDataProvider()
+                  .getGastroLables(modules[i].parameterList[j].id));
+              List<String> names = [];
+              for (var i = 0; i < lables.length; i++) {
+                names.add(lables[i].name);
+              }
+              modules[i].parameterList[j].options = names;
             }
-            modules[i].parameterList[j].options = names;
           }
+        }
+      } else {
+        List<CategoryModel> cat = (await ApiDataProvider().getCategories());
+        for (var k = 0; k < cat.length; k++) {
+          /*List<ProductModel> prod =
+              (await ApiDataProvider().getProducts(cat[k].id));
+          List<String> prodNames = [];
+          for (var n = 0; n < prod.length; n++) {
+            prodNames.add(prod[n].name);
+          }
+          categories.addAll({cat[i].name: prodNames});*/
+          //modules[i].parameterList[j].options =
+          // (await ApiDataProvider().getFormula());
         }
       }
     }

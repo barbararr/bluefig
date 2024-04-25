@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'doctor_parameter_model.dart';
@@ -55,6 +56,7 @@ class ModuleModel {
   int frequency;
   List<ParameterModel> parameterList;
   List<DoctorParameterModel> doctorParameterList = [];
+  List<Row> rows = [];
 
   factory ModuleModel.fromJson(Map<String, dynamic> json) {
     //print(parameterModelListFromJson(json["parameterList"]));

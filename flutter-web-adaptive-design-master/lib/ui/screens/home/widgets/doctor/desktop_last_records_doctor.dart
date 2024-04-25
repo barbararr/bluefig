@@ -14,6 +14,7 @@ import 'desktop_patient_doctor.dart';
 import '../patient/desktop_replies_page.dart';
 import '../log_in_page.dart';
 import '../../../../common/globals.dart' as globals;
+import 'desktop_statistics_doctor.dart';
 
 class DesktopPatientLastRecordsPageDoctor extends StatefulWidget {
   const DesktopPatientLastRecordsPageDoctor({Key? key}) : super(key: key);
@@ -74,6 +75,11 @@ class _DesktopPatientLastRecordsPageDoctorState
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             (DesktopRecomendationPageDoctor())));
+                  }
+                  if (selectedCategory == 'Статистика') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (DesktopStatisticsDoctorPagePatient())));
                   }
                 });
               }),
