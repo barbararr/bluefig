@@ -102,6 +102,8 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
                 modules[index].doctorParameterList[i].value = value,
             cursorColor: secondColor,
             decoration: InputDecoration(
+              labelStyle: TextStyle(fontSize: 16.0, color: secondColor),
+              hintStyle: TextStyle(fontSize: 16.0, color: secondColor),
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
                   color: fourthColor,

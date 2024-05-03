@@ -193,6 +193,8 @@ class _ModulesPatientExpansionTileState
                   modules[index].parameterList[i].value = value,
               cursorColor: secondColor,
               decoration: InputDecoration(
+                hintStyle: TextStyle(fontSize: 16.0, color: secondColor),
+                labelStyle: TextStyle(fontSize: 16.0, color: secondColor),
                 labelText: modules[index].parameterList[i].description,
                 focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(

@@ -87,11 +87,11 @@ class _DesktopFoodDiaryState extends State<DesktopFoodDiary> {
     json +=
         "{\"value\": \"$value\", \"answerIdJpa\": {\"fillIn\" : \"\", \"parameterId\": \"$foodWeightsID\"}}]}";
     print(json);
-    if (!(await ApiDataProvider().sendModuleData(json)))
+    /*if (!(await ApiDataProvider().sendModuleData(json)))
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Проверьте корректность введенных значений!'),
         backgroundColor: Colors.red,
-      ));
+      ));*/
   }
 
   Card createCard(int i) {
@@ -140,6 +140,8 @@ class _DesktopFoodDiaryState extends State<DesktopFoodDiary> {
                   cursorColor: secondColor,
                   decoration: InputDecoration(
                     labelText: "г",
+                    hintStyle: TextStyle(fontSize: 16.0, color: secondColor),
+                    labelStyle: TextStyle(fontSize: 16.0, color: secondColor),
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                         color: fourthColor,

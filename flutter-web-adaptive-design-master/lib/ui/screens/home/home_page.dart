@@ -1,4 +1,5 @@
 import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_doctors_admin.dart';
+import 'package:adaptive_design/ui/screens/home/widgets/api_data_provider.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_main_patient.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_modules_doctor.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_notification_page_patient.dart';
@@ -20,6 +21,7 @@ class HomePage extends StatelessWidget {
       if (type == DeviceTypeEnum.mobile) {
         return MobileHomePage();
       }
+      //ApiDataProvider().deleteQuestionary();
       return Login();
     });
   }

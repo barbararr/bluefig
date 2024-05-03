@@ -12,6 +12,7 @@ import 'desktop_notification_page_patient.dart';
 import 'desktop_replies_page.dart';
 import '../log_in_page.dart';
 import '../../../../common/globals.dart' as globals;
+import 'desktop_statistics_patient.dart';
 
 class DesktopPatientLastRecordsPagePatient extends StatefulWidget {
   const DesktopPatientLastRecordsPagePatient({Key? key}) : super(key: key);
@@ -66,6 +67,11 @@ class _DesktopPatientLastRecordsPagePatientState
                   if (selectedCategory == 'Добавить запись') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => (DesktopModulesPagePatient())));
+                  }
+                  if (selectedCategory == 'Статистика') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (DesktopStatisticsPatientPagePatient())));
                   }
                 });
               }),

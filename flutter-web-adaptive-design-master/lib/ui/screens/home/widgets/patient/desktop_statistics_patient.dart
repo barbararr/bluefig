@@ -112,6 +112,11 @@ class _DesktopStatisticsPatientPagePatientState
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => (DesktopModulesPagePatient())));
                   }
+                  if (selectedCategory == 'Статистика') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (DesktopStatisticsPatientPagePatient())));
+                  }
                 });
               }),
         )

@@ -642,4 +642,21 @@ class ApiDataProvider {
       return false;
     }
   }
+
+  void deleteQuestionary() async {
+    try {
+      var url = Uri.parse(ApiConstants.baseUrl +
+          "/questionary/" +
+          "e8c4acc3-8494-4f79-928d-7f596bec948a");
+      var response = await http.delete(url, headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      });
+      log(response.statusCode.toString() + "\n");
+      print(response.body);
+      if (response.statusCode == 200) {
+      } else {}
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 }
