@@ -43694,7 +43694,7 @@ m2(a){return this.TJ(a)},
 TJ(a){var s=0,r=A.Z(t.Ct),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$m2=A.a_(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL(B.b.w("http://localhost:8080/user/",a))
+m=A.cL(B.b.w("https://bluefig.ru/user/",a))
 s=7
 return A.R(A.fe(m,null),$async$m2)
 case 7:l=c
@@ -43730,7 +43730,7 @@ var $async$wN=A.a_(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:p=4
 A.aqG("yyyy-MM-dd",null)
 A.aqG("yyyy-MM-dd",null)
-m=A.cL("http://localhost:8080/user")
+m=A.cL("https://bluefig.ru/user")
 j=t.N
 j=A.ak(["Content-Type","application/json; charset=UTF-8"],j,j)
 s=7
@@ -43766,7 +43766,7 @@ var $async$xD=A.a_(function(c,d){if(c===1){o=d
 s=p}while(true)switch(s){case 0:p=4
 g=t.N
 m=A.ak(['"username"','"'+A.e(a)+'"','"password"','"'+A.e(b)+'"'],g,g)
-l=A.cL("http://localhost:8080/login")
+l=A.cL("https://bluefig.ru/login")
 g=A.ak(["Content-Type","application/json; charset=UTF-8"],g,g)
 s=7
 return A.R(A.GC(l,A.ia(m),g),$async$xD)
@@ -43809,7 +43809,7 @@ u_(a){return this.Tr(a)},
 Tr(a){var s=0,r=A.Z(t.Ni),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$u_=A.a_(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL(B.b.w("http://localhost:8080/patients_list/",a))
+m=A.cL(B.b.w("https://bluefig.ru/patients_list/",a))
 s=7
 return A.R(A.fe(m,null),$async$u_)
 case 7:l=c
@@ -43841,7 +43841,7 @@ u5(a){return this.TE(a)},
 TE(a){var s=0,r=A.Z(t.Ni),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$u5=A.a_(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL(B.b.w("http://localhost:8080/patientsHierarchy/",a))
+m=A.cL(B.b.w("https://bluefig.ru/patientsHierarchy/",a))
 s=7
 return A.R(A.fe(m,null),$async$u5)
 case 7:l=c
@@ -43872,7 +43872,7 @@ return A.Y($async$u5,r)},
 nj(){var s=0,r=A.Z(t.S1),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$nj=A.a_(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL("http://localhost:8080/parameters")
+m=A.cL("https://bluefig.ru/parameters")
 h=t.N
 s=7
 return A.R(A.fe(m,A.ak(["Content-Type","application/json; charset=UTF-8"],h,h)),$async$nj)
@@ -43910,7 +43910,7 @@ s=p}while(true)switch(s){case 0:p=4
 i=t.N
 m=A.ak(['"patientId"','"'+A.e(a)+'"','"doctorId"','"'+A.e(b)+'"','"moduleId"','"'+A.e(c)+'"','"frequency"',A.ey(d,null),'"doctorParametersFillIn"',e],i,t.K)
 A.aW(A.ia(m))
-l=A.cL("http://localhost:8080/questionary")
+l=A.cL("https://bluefig.ru/questionary")
 i=A.ak(["Content-Type","application/json; charset=UTF-8"],i,i)
 s=7
 return A.R(A.GC(l,A.ia(m),i),$async$u7)
@@ -43944,7 +43944,7 @@ tZ(a){return this.Tq(a)},
 Tq(a){var s=0,r=A.Z(t.S1),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$tZ=A.a_(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL(B.b.w("http://localhost:8080/module/",a))
+m=A.cL(B.b.w("https://bluefig.ru/module/",a))
 h=t.N
 s=7
 return A.R(A.fe(m,A.ak(["Content-Type","application/json; charset=UTF-8"],h,h)),$async$tZ)
@@ -43979,7 +43979,7 @@ tV(a){return this.T8(a)},
 T8(a){var s=0,r=A.Z(t.j2),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$tV=A.a_(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL(B.b.w("http://localhost:8080/module/gastroLabel/",a))
+m=A.cL(B.b.w("https://bluefig.ru/module/gastroLabel/",a))
 h=t.N
 s=7
 return A.R(A.fe(m,A.ak(["Content-Type","application/json; charset=UTF-8"],h,h)),$async$tV)
@@ -44013,7 +44013,7 @@ pI(a,b){return this.Tm(0,b)},
 Tm(a,b){var s=0,r=A.Z(t.ps),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$pI=A.a_(function(c,d){if(c===1){o=d
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL(B.b.w("http://localhost:8080/notifications/",b))
+m=A.cL(B.b.w("https://bluefig.ru/notifications/",b))
 s=7
 return A.R(A.fe(m,null),$async$pI)
 case 7:l=d
@@ -44044,7 +44044,7 @@ return A.Y($async$pI,r)},
 pE(){var s=0,r=A.Z(t.Ni),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$pE=A.a_(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL("http://localhost:8080/doctors_list")
+m=A.cL("https://bluefig.ru/doctors_list")
 s=7
 return A.R(A.fe(m,null),$async$pE)
 case 7:l=b
@@ -44075,7 +44075,7 @@ return A.Y($async$pE,r)},
 pJ(){var s=0,r=A.Z(t.Ni),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$pJ=A.a_(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL("http://localhost:8080/patients_list")
+m=A.cL("https://bluefig.ru/patients_list")
 s=7
 return A.R(A.fe(m,null),$async$pJ)
 case 7:l=b
@@ -44110,7 +44110,7 @@ s=p}while(true)switch(s){case 0:p=4
 i=t.N
 m=A.ak(['"patientId"','"'+A.e(a)+'"','"doctorId"','"'+A.e(b)+'"'],i,t.K)
 A.aW(A.ia(m))
-l=A.cL(B.b.w(B.b.w("http://localhost:8080/link_patient/",a)+"/",b))
+l=A.cL(B.b.w(B.b.w("https://bluefig.ru/link_patient/",a)+"/",b))
 A.aW(J.ab(l))
 s=7
 return A.R(A.GC(l,null,A.ak(["Content-Type","application/json; charset=UTF-8"],i,i)),$async$t0)
@@ -44144,7 +44144,7 @@ TZ(a){var s=0,r=A.Z(t.y),q,p=2,o,n=[],m,l,k,j,i,h
 var $async$ue=A.a_(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:p=4
 A.aW(a)
-m=A.cL("http://localhost:8080 /moduleFillIn")
+m=A.cL("https://bluefig.ru /moduleFillIn")
 j=t.N
 s=7
 return A.R(A.GC(m,a,A.ak(["Content-Type","application/json; charset=UTF-8"],j,j)),$async$ue)
@@ -44178,7 +44178,7 @@ pF(a){return this.Tf(a)},
 Tf(a){var s=0,r=A.Z(t.W9),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$pF=A.a_(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL(B.b.w("http://localhost:8080 /moduleFillIn/",a))
+m=A.cL(B.b.w("https://bluefig.ru /moduleFillIn/",a))
 h=t.N
 s=7
 return A.R(A.fe(m,A.ak(["Content-Type","application/json; charset=UTF-8"],h,h)),$async$pF)
@@ -44211,7 +44211,7 @@ u3(a){return this.Tu(a)},
 Tu(a){var s=0,r=A.Z(t.Nd),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$u3=A.a_(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL(B.b.w("http://localhost:8080/recommendation/",a))
+m=A.cL(B.b.w("https://bluefig.ru/recommendation/",a))
 h=t.N
 s=7
 return A.R(A.fe(m,A.ak(["Content-Type","application/json; charset=UTF-8"],h,h)),$async$u3)
@@ -44245,7 +44245,7 @@ U2(a){var s=0,r=A.Z(t.y),q,p=2,o,n=[],m,l,k,j,i,h
 var $async$uh=A.a_(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:p=4
 A.aW(a)
-m=A.cL("http://localhost:8080/recommendation")
+m=A.cL("https://bluefig.ru/recommendation")
 j=t.N
 s=7
 return A.R(A.GC(m,a,A.ak(["Content-Type","application/json; charset=UTF-8"],j,j)),$async$uh)
@@ -44279,7 +44279,7 @@ tR(a){return this.T2(a)},
 T2(a){var s=0,r=A.Z(t._n),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$tR=A.a_(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL(B.b.w("http://localhost:8080/doctorParameters/",a))
+m=A.cL(B.b.w("https://bluefig.ru/doctorParameters/",a))
 h=t.N
 s=7
 return A.R(A.fe(m,A.ak(["Content-Type","application/json; charset=UTF-8"],h,h)),$async$tR)
@@ -44313,7 +44313,7 @@ tS(a){return this.T3(a)},
 T3(a){var s=0,r=A.Z(t.j6),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$tS=A.a_(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL(B.b.w("http://localhost:8080/doctorParametersLabels/",a))
+m=A.cL(B.b.w("https://bluefig.ru/doctorParametersLabels/",a))
 h=t.N
 s=7
 return A.R(A.fe(m,A.ak(["Content-Type","application/json; charset=UTF-8"],h,h)),$async$tS)
@@ -44346,7 +44346,7 @@ return A.Y($async$tS,r)},
 tU(){var s=0,r=A.Z(t.yp),q,p=2,o,n=[],m,l,k,j,i,h,g,f,e
 var $async$tU=A.a_(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL("http://localhost:8080/formula")
+m=A.cL("https://bluefig.ru/formula")
 h=t.N
 s=7
 return A.R(A.fe(m,A.ak(["Content-Type","application/json; charset=UTF-8"],h,h)),$async$tU)
@@ -44380,7 +44380,7 @@ return A.Y($async$tU,r)},
 pC(){var s=0,r=A.Z(t.Yw),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$pC=A.a_(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL("http://localhost:8080/productGroup")
+m=A.cL("https://bluefig.ru/productGroup")
 h=t.N
 s=7
 return A.R(A.fe(m,A.ak(["Content-Type","application/json; charset=UTF-8"],h,h)),$async$pC)
@@ -44414,7 +44414,7 @@ return A.Y($async$pC,r)},
 u1(){var s=0,r=A.Z(t.St),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$u1=A.a_(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL("http://localhost:8080/products")
+m=A.cL("https://bluefig.ru/products")
 h=t.N
 s=7
 return A.R(A.fe(m,A.ak(["Content-Type","application/json; charset=UTF-8"],h,h)),$async$u1)
@@ -44449,7 +44449,7 @@ pM(a,b){return this.TH(a,b)},
 TH(a,b){var s=0,r=A.Z(t.P),q,p=2,o,n=[],m,l,k,j,i,h,g,f
 var $async$pM=A.a_(function(c,d){if(c===1){o=d
 s=p}while(true)switch(s){case 0:p=4
-m=A.cL(B.b.w("http://localhost:8080/statistics/"+a+"/",b))
+m=A.cL(B.b.w("https://bluefig.ru/statistics/"+a+"/",b))
 h=t.N
 s=7
 return A.R(A.fe(m,A.ak(["Content-Type","application/json; charset=UTF-8"],h,h)),$async$pM)
