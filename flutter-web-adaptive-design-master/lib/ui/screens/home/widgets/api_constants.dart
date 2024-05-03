@@ -1,5 +1,5 @@
 class ApiConstants {
-  static String baseUrl = 'http://localhost:8080';
+  static String baseUrl = 'https://bluefig.ru';
   static String usersEndpoint = '/user';
   static String loginEndpoint = '/login';
   static String getPatientsDoctorEndpoint = '/patients_list/';

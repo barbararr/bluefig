@@ -9,7 +9,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Запустить Chrome на localhost",
-            "url": "http://localhost:8080",
+            "url": "https://bluefig.ru",
             "webRoot": "${workspaceFolder}",
             //"args": [
                // "--no-sound-null-safety"
