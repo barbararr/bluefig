@@ -16,8 +16,16 @@ String currentPatientID = "";
 
 String currentDoctorID = "";
 
+String userToChange = "";
+
+String userToSearch = "";
+
 bool addNew = false;
 
 bool addNewRecomendation = false;
 
 String questtionaryID = "";
+
+bool newModules = true;
+
+String searchInfo = '';

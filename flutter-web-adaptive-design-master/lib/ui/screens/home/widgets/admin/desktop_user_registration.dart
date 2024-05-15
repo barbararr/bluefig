@@ -1,12 +1,8 @@
-import 'package:adaptive_design/ui/common/models/users_model_ex.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_main_patient.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patients_list_doctor.dart';
-import 'package:flutter/foundation.dart';
+import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_doctors_admin.dart';
+import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_patients_admin.dart';
 import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 
 import '../../../../common/app_colors.dart';
-import '../patient/desktop_replies_page.dart';
 import 'dart:developer';
 import '../../../../common/models/user_model.dart';
 import '../api_data_provider.dart';
@@ -21,6 +17,20 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
+  List<String> patientData = [];
+
+  Map<String, String> userData = {
+    'username': '',
+    'firstname': '',
+    'lastname': '',
+    'email': '',
+    'birthday': '',
+    'sex': '',
+    'password': '',
+    'fathername': '',
+    'roleId': '',
+  };
+
   List<String> categories = ['Доктор', 'Пациент'];
   List<String> elementsEnterPatient = [
     'username',
@@ -48,20 +58,9 @@ class _RegistrationState extends State<Registration> {
 
   List<String> listOfElements = [];
 
-  Map<String, String> userData = {
-    'username': '',
-    'firstname': '',
-    'lastname': '',
-    'email': '',
-    'birthday': '',
-    'sex': '',
-    'password': '',
-    'fathername': '',
-    'roleId': '',
-  };
   final _formkey = GlobalKey<FormState>();
 
-  void registerUser() {
+  Future<void> registerUser() async {
     UserModel userModel = UserModel(
         id: "",
         username: userData['username'].toString(),
@@ -73,37 +72,24 @@ class _RegistrationState extends State<Registration> {
         roleId: userData['roleId'].toString(),
         birthday: userData['birthday'].toString(),
         sex: userData['sex'].toString());
-    bool completed = ApiDataProvider().createUser(userModel) as bool;
+    bool completed = await ApiDataProvider().createUser(userModel);
     if (completed == false) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Check the correctness of input data!'),
         backgroundColor: Colors.red,
       ));
     } else {
-      if (globals.user?.roleId == globals.doctorRoleId) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Пользователь зарегистрирован'),
+      ));
+      if (userData['roleId'].toString() == globals.doctorRoleId) {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ((DesktopPatientListPageDoctor()))));
+            builder: (context) => ((const DesktopDoctorsListPageAdmin()))));
       } else {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ((DesktopMainPatientPagePatient()))));
+            builder: (context) => ((const DesktopPatientListPageAdmin()))));
       }
     }
-  }
-
-  RegExp regExp = new RegExp(
-    r"^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$",
-    //r'^(0[1-9]|1[012])[-/.](0[1-9]|[12][0-9]|3[01])[-/.](19|20)\\d\\d$'
-    caseSensitive: true,
-    multiLine: false,
-  );
-
-  var _controller = TextEditingController();
-
-  // dispose it when the widget is unmounted
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   String validate(String? value, String element) {
@@ -134,22 +120,6 @@ class _RegistrationState extends State<Registration> {
     }
   }
 
-  String? get _errorText {
-    // at any time, we can get the text from _controller.value.text
-    var text = _controller.value.text;
-    // Note: you can do your own custom validation here
-    // Move this logic this outside the widget for more testable code
-    if (text.isEmpty) {
-      return 'Can\'t be empty';
-    }
-    if (text.length < 4) {
-      return 'Too short';
-    }
-
-    // return null if the text is valid
-    return null;
-  }
-
   bool isValid = true;
   String errorMessage = "";
 
@@ -161,14 +131,14 @@ class _RegistrationState extends State<Registration> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: firstColor,
-        title: Text('Регистрация'),
+        title: const Text('Регистрация'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               width: 60,
               height: 60,
             ),
@@ -201,7 +171,7 @@ class _RegistrationState extends State<Registration> {
             ),
             Flexible(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Form(
@@ -242,11 +212,11 @@ class _RegistrationState extends State<Registration> {
                                         ),
                                         hintText: listOfElements[i],
                                         labelText: listOfElements[i],
-                                        hintStyle: TextStyle(
+                                        hintStyle: const TextStyle(
                                             fontSize: 16.0, color: secondColor),
-                                        labelStyle: TextStyle(
+                                        labelStyle: const TextStyle(
                                             fontSize: 16.0, color: secondColor),
-                                        border: OutlineInputBorder(
+                                        border: const OutlineInputBorder(
                                             borderSide:
                                                 BorderSide(color: secondColor),
                                             borderRadius: BorderRadius.all(
@@ -257,7 +227,7 @@ class _RegistrationState extends State<Registration> {
                                 padding: const EdgeInsets.all(28.0),
                                 child: Container(
                                   child: RaisedButton(
-                                    child: Text(
+                                    child: const Text(
                                       'Зарегистрировать',
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 22),

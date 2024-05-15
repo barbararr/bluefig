@@ -1,23 +1,15 @@
-import 'dart:html';
-
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_doctor_appbar.dart';
+import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_doctor_last_recomendations.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_doctor_recomendation.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_last_records_doctor.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_modules_doctor.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patients_list_doctor.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_statistics_doctor.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../common/app_colors.dart';
 import '../../../../common/models/user_model.dart';
 import '../api_data_provider.dart';
-import 'desktop_notification_page_doctor.dart';
-import '../patient/desktop_notification_page_patient.dart';
-import '../patient/desktop_replies_page.dart';
+import 'desktop_existing_modules.dart';
 
 import '../../../../common/globals.dart' as globals;
-import '../log_in_page.dart';
 
 class DesktopMainPatientPageDoctor extends StatefulWidget {
   const DesktopMainPatientPageDoctor({Key? key}) : super(key: key);
@@ -33,6 +25,8 @@ class _DesktopMainPatientPageDoctorState
     'Данные',
     'Статистика',
     'Последние записи',
+    'Рекомендации',
+    'Назначенные модули',
     'Назначить модуль',
     'Дать рекомендацию',
   ];
@@ -83,8 +77,6 @@ class _DesktopMainPatientPageDoctorState
 
   TextSpan patientDataToString() {
     var text = TextSpan(
-        // Note: Styles for TextSpans must be explicitly defined.
-        // Child text spans will inherit styles from parent
         style: const TextStyle(
           fontSize: 14.0,
           color: Colors.black,
@@ -109,27 +101,38 @@ class _DesktopMainPatientPageDoctorState
                   }
                   if (selectedCategory == 'Назначить модуль') {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => (DesktopModulesPageDoctor())));
+                        builder: (context) =>
+                            (const DesktopModulesPageDoctor())));
                   }
                   if (selectedCategory == 'Данные') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopMainPatientPageDoctor())));
+                            (const DesktopMainPatientPageDoctor())));
                   }
                   if (selectedCategory == 'Последние записи') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopPatientLastRecordsPageDoctor())));
+                            (const DesktopPatientLastRecordsPageDoctor())));
                   }
                   if (selectedCategory == 'Дать рекомендацию') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopRecomendationPageDoctor())));
+                            (const DesktopRecomendationPageDoctor())));
                   }
                   if (selectedCategory == 'Статистика') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopStatisticsDoctorPagePatient())));
+                            (const DesktopStatisticsDoctorPagePatient())));
+                  }
+                  if (selectedCategory == 'Рекомендации') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (const DesktopLastRecomendationsPageDoctor())));
+                  }
+                  if (selectedCategory == 'Назначенные модули') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (const DesktopExistingModulesPageDoctor())));
                   }
                 });
               }),
@@ -142,13 +145,13 @@ class _DesktopMainPatientPageDoctorState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DoctorAppbar(),
+      appBar: const DoctorAppbar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             //Spacer(),
-            SizedBox(
+            const SizedBox(
               width: 60,
               height: 60,
             ),
@@ -157,7 +160,7 @@ class _DesktopMainPatientPageDoctorState
                 children: getChoiceChips()),
             Flexible(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Form(

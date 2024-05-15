@@ -1,19 +1,13 @@
-import 'dart:html';
-
 import 'package:adaptive_design/ui/common/app_colors.dart';
-import 'package:adaptive_design/ui/common/notification_list.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_admin_appbar.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_doctor_main_admin.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_notification_page_doctor.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_patients_admin.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_replies_page.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_user_registration.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/models/user_model.dart';
 import '../api_data_provider.dart';
 import '../../../../common/globals.dart' as globals;
-import '../log_in_page.dart';
+import 'desktop_search_user.dart';
 
 class DesktopDoctorsListPageAdmin extends StatefulWidget {
   const DesktopDoctorsListPageAdmin({Key? key}) : super(key: key);
@@ -40,9 +34,8 @@ class _DesktopDoctorsListPageAdminState
 
   void doctorIdProfile(int index) {
     globals.currentDoctorID = doctors[index].id;
-    // go to patients profile with this id
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => (DesktopMainDoctorPageAdmin())));
+        builder: (context) => (const DesktopMainDoctorPageAdmin())));
   }
 
   String getDoctorsName(int index) {
@@ -56,7 +49,7 @@ class _DesktopDoctorsListPageAdminState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AdminAppbar(),
+      appBar: const AdminAppbar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -67,7 +60,7 @@ class _DesktopDoctorsListPageAdminState
                 Padding(
                   padding: const EdgeInsets.all(28.0),
                   child: Container(
-                    child: Text(
+                    child: const Text(
                       'Доктора',
                       style: TextStyle(color: firstColor, fontSize: 22),
                     ),
@@ -75,18 +68,41 @@ class _DesktopDoctorsListPageAdminState
                     height: 30,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(28.0),
                   child: Container(
                     child: RaisedButton(
-                      child: Text(
+                      child: const Text(
+                        'Поиск',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                      onPressed: () => {
+                        globals.userToSearch = "doctor",
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                (const DesktopSearchUserPageAdmin())))
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      color: thirdColor,
+                    ),
+                    width: MediaQuery.of(context).size.width / 5,
+                    height: 30,
+                  ),
+                ),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(28.0),
+                  child: Container(
+                    child: RaisedButton(
+                      child: const Text(
                         'Добавить',
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                       onPressed: () => Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (context) => (Registration()))),
+                              builder: (context) => (const Registration()))),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30)),
                       color: thirdColor,

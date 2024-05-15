@@ -1,14 +1,10 @@
-import 'dart:developer';
-
 import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_doctors_admin.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_main_patient.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patients_list_doctor.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/app_colors.dart';
 import 'api_data_provider.dart';
-import 'patient/desktop_replies_page.dart';
 import '../../../common/globals.dart' as globals;
 
 class Login extends StatefulWidget {
@@ -37,7 +33,7 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: firstColor,
-        title: Text('Вход'),
+        title: const Text('Вход'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -57,7 +53,7 @@ class _LoginState extends State<Login> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Form(
@@ -70,8 +66,8 @@ class _LoginState extends State<Login> {
                               child: TextFormField(
                                   onChanged: (value) => login = value,
                                   cursorColor: secondColor,
-                                  decoration: InputDecoration(
-                                    focusedBorder: const OutlineInputBorder(
+                                  decoration: const InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: secondColor,
                                         width: 2.0,
@@ -102,8 +98,8 @@ class _LoginState extends State<Login> {
                               obscureText: true,
                               onChanged: (value) => password = value,
                               cursorColor: secondColor,
-                              decoration: InputDecoration(
-                                focusedBorder: const OutlineInputBorder(
+                              decoration: const InputDecoration(
+                                focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: secondColor,
                                     width: 2.0,
@@ -134,40 +130,41 @@ class _LoginState extends State<Login> {
                               padding: const EdgeInsets.all(28.0),
                               child: Container(
                                 child: RaisedButton(
-                                  child: Text(
+                                  child: const Text(
                                     'Войти',
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 22),
                                   ),
                                   onPressed: () {
                                     ApiDataProvider().login(login, password);
-                                    Future.delayed(Duration(seconds: 1), () {
+                                    Future.delayed(const Duration(seconds: 1),
+                                        () {
                                       if (!globals.logedIn) {
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
+                                            .showSnackBar(const SnackBar(
                                           content: Text(
                                               'Проверьте корректность введенных значений!'),
                                           backgroundColor: Colors.red,
                                         ));
                                       } else {
                                         if (globals.user!.roleId ==
-                                            globals.doctorRoleId)
+                                            globals.doctorRoleId) {
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      ((DesktopPatientListPageDoctor()))));
-                                        else {
+                                                      ((const DesktopPatientListPageDoctor()))));
+                                        } else {
                                           if (globals.user!.roleId ==
                                               globals.patientRoleId) {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        ((DesktopMainPatientPagePatient()))));
+                                                        ((const DesktopMainPatientPagePatient()))));
                                           } else {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        ((DesktopDoctorsListPageAdmin()))));
+                                                        ((const DesktopDoctorsListPageAdmin()))));
                                           }
                                         }
                                       }

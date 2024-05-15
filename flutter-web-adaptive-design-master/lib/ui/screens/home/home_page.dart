@@ -18,10 +18,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdaptivePageBuilder(builder: (context, type) {
-      if (type == DeviceTypeEnum.mobile) {
+      /*if (type == DeviceTypeEnum.mobile) {
         return MobileHomePage();
-      }
-      //ApiDataProvider().deleteQuestionary();
+      }*/
       return Login();
     });
   }

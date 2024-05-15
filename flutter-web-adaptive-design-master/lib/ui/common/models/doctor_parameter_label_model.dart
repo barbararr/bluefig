@@ -2,15 +2,10 @@ import 'dart:convert';
 
 import 'dart:developer';
 
-import 'package:intl/intl.dart';
-
 DoctorParameterLabelModel doctorParameterLabelModelFromJson(String str) {
   log("str " + str);
   final user = jsonDecode(str) as Map<String, dynamic>;
-
-  // return user.map((x) => UserModel.fromJson(x))
   return DoctorParameterLabelModel.fromJson(user);
-  //return jsonDecode(str).map((x) => UserModel.fromJson(x));
 }
 
 List<DoctorParameterLabelModel> doctorParameterLabelModelListFromJson(
@@ -45,14 +40,4 @@ class DoctorParameterLabelModel {
         "name": name,
         "parameterId": parameterId,
       };
-
-  /* Map<String, String> getData() => {
-        "firstname": firstname,
-        "lastname": lastname,
-        "email": email,
-        "birthday": birthday,
-        //"birthday": birthday.toString(),
-        "sex": sex,
-        //"fathername": fathername,
-      };*/
 }

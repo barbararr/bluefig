@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'doctor_parameter_model.dart';
 import 'parameter_model.dart';
@@ -12,22 +11,13 @@ ModuleModel moduleModelFromJson(String str) {
   log("str " + str);
   final user = jsonDecode(str) as Map<String, dynamic>;
 
-  // return user.map((x) => UserModel.fromJson(x))
   return ModuleModel.fromJson(user);
-  //return jsonDecode(str).map((x) => UserModel.fromJson(x));
 }
-
-/*List<ModuleModel> moduleModelListFromJson(String str) => List<ModuleModel>.from(
-    json.decode(str).map((x) => ModuleModel.fromJson(x)));*/
 
 List<ModuleModel> moduleModelListFromJson(String str) => List<ModuleModel>.from(
     json.decode(str).map((x) => ModuleModel.fromJson(x)));
 
-/*List<ModuleModel> moduleModelListFromJson(String str) => List<ModuleModel>.from(
-    jsonDecode(jsonEncode(str)).map((x) => ModuleModel.fromJson(x)));*/
-
 String moduleModelToJson(ModuleModel data) => json.encode(data.toJson());
-//json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ModuleModel {
   ModuleModel({
@@ -38,18 +28,6 @@ class ModuleModel {
     required this.parameterList,
   });
 
-  /*UserModel(Map<String, String> userData) {
-    username = userData['username'].toString();
-    firstname = userData['firstname'].toString();
-    lastname = userData['lastname'].toString();
-    fathername = userData['fathername'].toString();
-    email = userData['email'].toString();
-    password = userData['password'].toString();
-    roleId = userData['roleId'].toString();
-    birthday = userData['birthday'].toString();
-    sex = userData['sex'].toString();
-  }*/
-
   String id;
   String name;
   String questionaryId;
@@ -59,7 +37,6 @@ class ModuleModel {
   List<Row> rows = [];
 
   factory ModuleModel.fromJson(Map<String, dynamic> json) {
-    //print(parameterModelListFromJson(json["parameterList"]));
     return ModuleModel(
         id: json["id"],
         questionaryId: json["questionaryId"],
@@ -84,14 +61,4 @@ class ModuleModel {
         "id": id,
         "name": name,
       };
-
-  /* Map<String, String> getData() => {
-        "firstname": firstname,
-        "lastname": lastname,
-        "email": email,
-        "birthday": birthday,
-        //"birthday": birthday.toString(),
-        "sex": sex,
-        //"fathername": fathername,
-      };*/
 }

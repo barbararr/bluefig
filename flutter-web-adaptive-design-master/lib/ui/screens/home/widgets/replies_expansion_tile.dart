@@ -13,14 +13,6 @@ class ReplyExpansionTile extends StatefulWidget {
 }
 
 class _ReplyExpansionTileState extends State<ReplyExpansionTile> {
-  final List<Map<String, dynamic>> _users = List.generate(
-      20,
-      (index) => {
-            "id": index,
-            "name": "Ответ $index",
-            "detail": "Ответ $index. Текст ответа."
-          });
-
   List<Map<String, dynamic>> records = [];
   List<RecommendationModel> recommendations = [];
 
@@ -69,10 +61,7 @@ class _ReplyExpansionTileState extends State<ReplyExpansionTile> {
       itemBuilder: (_, index) {
         final item = records[index];
         return Card(
-          //Remember
-          //Here key is required to save and restore ExpansionTile expanded state
           key: PageStorageKey(item['id']),
-
           child: ExpansionTile(
             controlAffinity: ListTileControlAffinity.leading,
             childrenPadding:
@@ -82,7 +71,6 @@ class _ReplyExpansionTileState extends State<ReplyExpansionTile> {
             title: Text(item['name']),
             textColor: firstColor,
             iconColor: firstColor,
-            // Expanded Contents
             children: [
               ListTile(
                   leading: const CircleAvatar(

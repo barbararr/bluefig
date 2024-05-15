@@ -86,14 +86,4 @@ class DoctorParameterModel {
         "name": name,
         "moduleId": moduleId,
       };
-
-  /* Map<String, String> getData() => {
-        "firstname": firstname,
-        "lastname": lastname,
-        "email": email,
-        "birthday": birthday,
-        //"birthday": birthday.toString(),
-        "sex": sex,
-        //"fathername": fathername,
-      };*/
 }

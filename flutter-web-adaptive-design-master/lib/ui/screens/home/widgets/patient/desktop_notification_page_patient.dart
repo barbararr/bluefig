@@ -1,18 +1,11 @@
-import 'dart:html';
-
 import 'package:adaptive_design/ui/common/app_colors.dart';
-import 'package:adaptive_design/ui/common/notification_list.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_main_patient.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patient_doctor.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_patient_appbar.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_replies_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/models/notification_model.dart';
 import '../api_data_provider.dart';
 
 import '../../../../common/globals.dart' as globals;
-import '../log_in_page.dart';
 
 class DesktopNotificationPagePatient extends StatefulWidget {
   const DesktopNotificationPagePatient({Key? key}) : super(key: key);
@@ -47,7 +40,7 @@ class _DesktopNotificationPagePatientState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PatientAppbar(),
+      appBar: const PatientAppbar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -58,7 +51,7 @@ class _DesktopNotificationPagePatientState
                 Padding(
                   padding: const EdgeInsets.all(28.0),
                   child: Container(
-                    child: Text(
+                    child: const Text(
                       'Уведомления',
                       style: TextStyle(color: firstColor, fontSize: 22),
                     ),

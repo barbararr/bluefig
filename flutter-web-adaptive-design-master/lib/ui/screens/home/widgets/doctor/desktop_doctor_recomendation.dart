@@ -1,19 +1,13 @@
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_doctor_appbar.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patients_list_doctor.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/last_records_expansion_tile.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/replies_expansion_tile.dart';
-import 'package:flutter/foundation.dart';
+import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_existing_modules.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/app_colors.dart';
 import '../api_data_provider.dart';
+import 'desktop_doctor_last_recomendations.dart';
 import 'desktop_last_records_doctor.dart';
 import 'desktop_modules_doctor.dart';
-import 'desktop_notification_page_doctor.dart';
-import '../patient/desktop_notification_page_patient.dart';
 import 'desktop_patient_doctor.dart';
-import '../patient/desktop_replies_page.dart';
-import '../log_in_page.dart';
 import '../../../../common/globals.dart' as globals;
 import 'desktop_statistics_doctor.dart';
 
@@ -31,6 +25,8 @@ class _DesktopRecomendationPageDoctorState
     'Данные',
     'Статистика',
     'Последние записи',
+    'Рекомендации',
+    'Назначенные модули',
     'Назначить модуль',
     'Дать рекомендацию',
   ];
@@ -53,22 +49,33 @@ class _DesktopRecomendationPageDoctorState
                   }
                   if (selectedCategory == 'Назначить модуль') {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => (DesktopModulesPageDoctor())));
+                        builder: (context) =>
+                            (const DesktopModulesPageDoctor())));
                   }
                   if (selectedCategory == 'Данные') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopMainPatientPageDoctor())));
+                            (const DesktopMainPatientPageDoctor())));
                   }
                   if (selectedCategory == 'Последние записи') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopPatientLastRecordsPageDoctor())));
+                            (const DesktopPatientLastRecordsPageDoctor())));
                   }
                   if (selectedCategory == 'Статистика') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopStatisticsDoctorPagePatient())));
+                            (const DesktopStatisticsDoctorPagePatient())));
+                  }
+                  if (selectedCategory == 'Рекомендации') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (const DesktopLastRecomendationsPageDoctor())));
+                  }
+                  if (selectedCategory == 'Назначенные модули') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (const DesktopExistingModulesPageDoctor())));
                   }
                 });
               }),
@@ -79,15 +86,16 @@ class _DesktopRecomendationPageDoctorState
   Future<void> sendRecomendationData(String recommendation) async {
     String patientId = globals.currentPatientID;
     String doctorId = globals.user!.id;
+    recommendation = recommendation.split('\n').join('\\n');
     String json =
         "{\"patientId\": \"$patientId\", \"doctorId\": \"$doctorId\", \"recommendation\": \"$recommendation\"}";
     print(json);
-    if (!(await ApiDataProvider().sendRecommendation(json)))
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    if (!(await ApiDataProvider().sendRecommendation(json))) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Произошла ошибка!'),
         backgroundColor: Colors.red,
       ));
-    ;
+    }
   }
 
   Map userData = {};
@@ -95,12 +103,12 @@ class _DesktopRecomendationPageDoctorState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DoctorAppbar(),
+      appBar: const DoctorAppbar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               width: 60,
               height: 60,
             ),
@@ -109,7 +117,7 @@ class _DesktopRecomendationPageDoctorState
                 children: getChoiceChips()),
             Flexible(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Form(
@@ -124,8 +132,8 @@ class _DesktopRecomendationPageDoctorState
                                   maxLines: 20,
                                   onChanged: (value) => recommendation = value,
                                   cursorColor: secondColor,
-                                  decoration: InputDecoration(
-                                    focusedBorder: const OutlineInputBorder(
+                                  decoration: const InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: fourthColor,
                                         width: 1.0,
@@ -145,7 +153,7 @@ class _DesktopRecomendationPageDoctorState
                                 padding: const EdgeInsets.all(12.0),
                                 child: Container(
                                   child: RaisedButton(
-                                    child: Text(
+                                    child: const Text(
                                       'отправить',
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 15),
@@ -153,14 +161,14 @@ class _DesktopRecomendationPageDoctorState
                                     onPressed: () => {
                                       sendRecomendationData(recommendation),
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              duration: const Duration(
-                                                  milliseconds: 600),
+                                          .showSnackBar(const SnackBar(
+                                              duration:
+                                                  Duration(milliseconds: 600),
                                               content:
                                                   Text('Запись добавлена'))),
                                       Navigator.of(context).push(MaterialPageRoute(
                                           builder: (context) =>
-                                              ((DesktopMainPatientPageDoctor()))))
+                                              ((const DesktopMainPatientPageDoctor()))))
                                     },
                                     shape: RoundedRectangleBorder(
                                         borderRadius:

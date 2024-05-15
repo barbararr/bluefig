@@ -1,17 +1,12 @@
-import 'dart:html';
-
 import 'package:adaptive_design/ui/common/app_colors.dart';
 import 'package:adaptive_design/ui/common/models/user_model.dart';
-import 'package:adaptive_design/ui/common/notification_list.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_doctor_appbar.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_notification_page_doctor.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patient_doctor.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_replies_page.dart';
+import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_search_patient.dart';
 import 'package:flutter/material.dart';
 
 import '../api_data_provider.dart';
 import '../../../../common/globals.dart' as globals;
-import '../log_in_page.dart';
 
 class DesktopPatientListPageDoctor extends StatefulWidget {
   const DesktopPatientListPageDoctor({Key? key}) : super(key: key);
@@ -41,18 +36,14 @@ class _DesktopPatientListPageDoctorState
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
-  List<String> categories = [
-    'Все пациенты',
-    'Срочные',
-  ];
+  List<String> categories = ['Все пациенты', 'Срочные', 'Поиск'];
 
   String selectedCategory = '';
 
   void patientIdProfile(int index) {
     globals.currentPatientID = allPatients[index].id;
-    // go to patients profile with this id
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => (DesktopMainPatientPageDoctor())));
+        builder: (context) => (const DesktopMainPatientPageDoctor())));
   }
 
   String getPatientsName(int index) {
@@ -66,7 +57,7 @@ class _DesktopPatientListPageDoctorState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DoctorAppbar(),
+      appBar: const DoctorAppbar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -77,7 +68,7 @@ class _DesktopPatientListPageDoctorState
                 Padding(
                   padding: const EdgeInsets.all(28.0),
                   child: Container(
-                    child: Text(
+                    child: const Text(
                       'Пациенты',
                       style: TextStyle(color: firstColor, fontSize: 22),
                     ),
@@ -107,11 +98,23 @@ class _DesktopPatientListPageDoctorState
                               if (selectedCategory == 'Срочные') {
                                 patients = sortedPatients;
                               }
+                              if (selectedCategory == 'Поиск') {
+                                Navigator.pushReplacement(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (_, __, ___) =>
+                                          const DesktopSearchPatientPageDoctor(),
+                                      transitionDuration:
+                                          const Duration(milliseconds: 100),
+                                      transitionsBuilder: (_, a, __, c) =>
+                                          FadeTransition(opacity: a, child: c),
+                                    ));
+                              }
                             });
                           }),
                     )
                     .toList()),
-            SizedBox(
+            const SizedBox(
               width: 20,
               height: 20,
             ),

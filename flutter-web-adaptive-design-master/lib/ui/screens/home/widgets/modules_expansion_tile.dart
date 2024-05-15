@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:adaptive_design/ui/common/app_colors.dart';
 import 'package:adaptive_design/ui/common/models/doctor_parameter_model.dart';
 import 'package:adaptive_design/ui/common/models/module_model.dart';
@@ -7,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:multiselect/multiselect.dart';
 
 import '../../../common/models/doctor_parameter_label_model.dart';
-import '../../../common/models/parameter_model.dart';
 import 'api_data_provider.dart';
 
 import '../../../common/globals.dart' as globals;
@@ -39,28 +36,25 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
       String value = modules[id].doctorParameterList[i].value;
       String paramId = modules[id].doctorParameterList[i].id;
       json += "{\"parameterId\": \"$paramId\", \"value\": \"$value\"}";
-      if (i != modules[id].doctorParameterList.length - 1)
+      if (i != modules[id].doctorParameterList.length - 1) {
         json += ",";
-      else
+      } else {
         json += "]";
+      }
     }
     print(json);
 
-    for (var i = 0; i < modules[id].doctorParameterList.length; i++) {}
-    //setState(() async {
     if (!(await ApiDataProvider().giveModuleToPatient(globals.currentPatientID,
-        globals.user!.id, modules[id].id, frequency, json)))
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        globals.user!.id, modules[id].id, frequency, json))) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Проверьте корректность введенных значений!'),
         backgroundColor: Colors.red,
       ));
-    else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          duration: const Duration(milliseconds: 600),
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          duration: Duration(milliseconds: 600),
           content: Text('Модуль назначен')));
     }
-
-    //);
   }
 
   void getModulesToPrint() {
@@ -85,26 +79,26 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
 
     for (var i = 0; i < modules[index].doctorParameterList.length; i++) {
       DoctorParameterModel current = modules[index].doctorParameterList[i];
-      String current_name = current.name;
-      List<Widget> row_widgets = [];
+      String currentName = current.name;
+      List<Widget> rowWidgets = [];
 
-      row_widgets.add(Text(
-        "$current_name: ",
-        style: TextStyle(color: Colors.black, fontSize: 15),
+      rowWidgets.add(Text(
+        "$currentName: ",
+        style: const TextStyle(color: Colors.black, fontSize: 15),
       ));
 
       if (current.dataType == "input") {
-        row_widgets.add(Container(
+        rowWidgets.add(Container(
           width: MediaQuery.of(context).size.width / 3,
           height: 40,
           child: TextFormField(
             onChanged: (value) =>
                 modules[index].doctorParameterList[i].value = value,
             cursorColor: secondColor,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelStyle: TextStyle(fontSize: 16.0, color: secondColor),
               hintStyle: TextStyle(fontSize: 16.0, color: secondColor),
-              focusedBorder: const OutlineInputBorder(
+              focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: fourthColor,
                   width: 1.0,
@@ -120,7 +114,7 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
       }
       if (current.dataType == "switch") {
         modules[index].doctorParameterList[i].value = "нет";
-        row_widgets.add(StatefulBuilder(builder: (context, setState) {
+        rowWidgets.add(StatefulBuilder(builder: (context, setState) {
           return Checkbox(
               value: modules[index].doctorParameterList[i].isChecked,
               onChanged: (value) {
@@ -136,7 +130,7 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
         }));
       }
       if (current.dataType == "datalist" || current.dataType == "select") {
-        row_widgets.add(Expanded(
+        rowWidgets.add(Expanded(
           child: DropDownMultiSelect(
             options: current.options,
             selectedValues: current.selectedOptions,
@@ -151,22 +145,20 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
           ),
         ));
       }
-      Row row = Row(
-          //mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: row_widgets);
+      Row row =
+          Row(mainAxisAlignment: MainAxisAlignment.start, children: rowWidgets);
       fields.add(row);
-      fields.add(SizedBox(
+      fields.add(const SizedBox(
         height: 10,
       ));
     }
-    fields.add(SizedBox(
+    fields.add(const SizedBox(
       height: 10,
     ));
     fields.add(Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
+        const Text(
           "Частота: ",
           style: TextStyle(color: Colors.black, fontSize: 15),
         ),
@@ -176,8 +168,8 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
           child: TextFormField(
             onChanged: (value) => frequency = value,
             cursorColor: secondColor,
-            decoration: InputDecoration(
-              focusedBorder: const OutlineInputBorder(
+            decoration: const InputDecoration(
+              focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: fourthColor,
                   width: 1.0,
@@ -190,17 +182,14 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
             ),
           ),
         ),
-        /*TextFormField(
-                    onChanged: (value) => frequency = value as int,
-                  ),*/
-        Text(
+        const Text(
           " дней",
           style: TextStyle(color: Colors.black, fontSize: 15),
         ),
-        Spacer(),
+        const Spacer(),
         Container(
           child: RaisedButton(
-            child: Text(
+            child: const Text(
               'Добавить модуль',
               style: TextStyle(color: Colors.white, fontSize: 15),
             ),
@@ -256,10 +245,7 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
       itemBuilder: (_, index) {
         final item = modulesToPrint[index];
         return Card(
-          //Remember
-          //Here key is required to save and restore ExpansionTile expanded state
           key: PageStorageKey(item['id']),
-
           child: ExpansionTile(
               controlAffinity: ListTileControlAffinity.leading,
               childrenPadding:
@@ -269,70 +255,7 @@ class _ModulesExpansionTileState extends State<ModulesExpansionTile> {
               title: Text(item['name']),
               textColor: firstColor,
               iconColor: firstColor,
-              // Expanded Contents
-              children: buildModuleInput(item['id'], item)
-              /*[
-              ListTile(
-                  leading: const CircleAvatar(
-                    child: Icon(Icons.extension),
-                    backgroundColor: Colors.white,
-                    foregroundColor: firstColor,
-                  ),
-                  title: Text(item['detail'])),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Частота: ",
-                    style: TextStyle(color: Colors.black, fontSize: 15),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 6,
-                    height: 30,
-                    child: TextFormField(
-                      onChanged: (value) => frequency = value,
-                      cursorColor: secondColor,
-                      decoration: InputDecoration(
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: fourthColor,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(color: secondColor),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(9.0))),
-                      ),
-                    ),
-                  ),
-                  /*TextFormField(
-                    onChanged: (value) => frequency = value as int,
-                  ),*/
-                  Text(
-                    " дней",
-                    style: TextStyle(color: Colors.black, fontSize: 15),
-                  ),
-                  Spacer(),
-                  Container(
-                    child: RaisedButton(
-                      child: Text(
-                        'Добавить модуль',
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                      onPressed: () => addModule(item['id']),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30)),
-                      color: firstColor,
-                    ),
-                    width: MediaQuery.of(context).size.width / 5,
-                    height: 25,
-                  ),
-                ],
-              ),
-            ],*/
-              ),
+              children: buildModuleInput(item['id'], item)),
         );
       },
     );

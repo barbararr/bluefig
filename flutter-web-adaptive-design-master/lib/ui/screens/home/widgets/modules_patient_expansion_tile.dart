@@ -1,13 +1,8 @@
-import 'dart:html';
-
 import 'package:adaptive_design/ui/common/app_colors.dart';
 import 'package:adaptive_design/ui/common/models/category_model.dart';
 import 'package:adaptive_design/ui/common/models/gastro_label_model.dart';
 import 'package:adaptive_design/ui/common/models/module_model.dart';
-import 'package:adaptive_design/ui/common/models/module_with_parameters.dart';
 import 'package:adaptive_design/ui/common/models/parameter_model.dart';
-import 'package:adaptive_design/ui/common/models/product_model.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/drop_down_select.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/food_diary_page.dart';
 import 'package:flutter/material.dart';
 import 'package:multiselect/multiselect.dart';
@@ -36,16 +31,6 @@ class _ModulesPatientExpansionTileState
   List<String> selectedCProducts = [];
   List<String> selectedWeights = [];
 
-  /*void addModule(int id) {
-    setState(() {
-      ApiDataProvider().giveModuleToPatient(globals.currentPatientID,
-          globals.user!.id, modules[id].id, frequency);
-    });
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        duration: const Duration(milliseconds: 600),
-        content: Text('Модуль назначен')));
-  }*/
-
   void getModulesToPrint() {
     for (var i = 0; i < modules.length; i++) {
       modulesToPrint.add({
@@ -58,52 +43,8 @@ class _ModulesPatientExpansionTileState
 
   void getLables(String id) async {
     lables = (await ApiDataProvider().getGastroLables(id));
-    /*Future.delayed(const Duration(milliseconds: 100))
-        .then((value) => setState(() {}));*/
     Future.delayed(const Duration(milliseconds: 100));
   }
-
-  /*List<List<String>> list_names = [];
-  List<List<String>> list_selected_values = [];
-  List<String> apetit = [
-    "обычный",
-    "снижен",
-    "отсутствует",
-    "повышен",
-    "изменились предпочтения в еде"
-  ];
-  List<String> apetit_selected = [];
-  List<String> rvota_selected = [];
-  List<String> toshnota_selected = [];
-  List<String> sip_selected = [];
-  List<String> stul_selected = [];
-  List<String> bristol_selected = [];
-  List<String> rvota = [
-    "да",
-    "нет",
-  ];
-  List<String> toshnota = [
-    "после еды",
-    "до еды",
-    "не связана с приемом пищи",
-    "препятствует приему пищи"
-  ];
-  List<String> sip = [
-    "да",
-    "нет",
-  ];
-  List<String> stul = ["нет", "кровь", "слизь", "кусочки пищи", "другое"];
-  List<String> bristol = [
-    "Отдельные жёсткие куски, похожие на орехи",
-    "Колбасовидный комковатый",
-    "Колбасовидный с трещинами на поверхности",
-    "Колбасовидный с гладкой поверхностью",
-    "Мягкие комочки с чёткими краями",
-    "Рыхлые, мягкие пушистые комочки с рваными краями",
-    "Водянистый без твёрдых кусочков"
-  ];
-  bool _isChecked = false;*/
-  //List<Widget> buildChoices() {}
 
   Future<void> sendModuleData(String moduleID, String datetime,
       List<ParameterModel> parameterList) async {
@@ -115,41 +56,21 @@ class _ModulesPatientExpansionTileState
       String id = parameterList[i].id;
       json +=
           "{\"value\": \"$value\", \"answerIdJpa\": {\"fillIn\" : \"\", \"parameterId\": \"$id\"}}";
-      if (i != parameterList.length - 1)
+      if (i != parameterList.length - 1) {
         json += ",";
-      else
+      } else {
         json += "]}";
+      }
     }
     print(json);
 
-    if (!(await ApiDataProvider().sendModuleData(json)))
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    if (!(await ApiDataProvider().sendModuleData(json))) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Проверьте корректность введенных значений!'),
         backgroundColor: Colors.red,
       ));
+    }
   }
-
-  /*void buildFood(String current_name) {
-    List<Widget> row_widgets = [];
-    row_widgets.add(Text(
-      "Категория: ",
-      style: TextStyle(color: Colors.black, fontSize: 15),
-    ));
-    row_widgets.add(Expanded(
-      child: DropDownMultiSelect(
-        options: current.options,
-        selectedValues: current.selectedOptions,
-        onChanged: (value) {
-          print('выбрано $value');
-          setState(() {
-            current.selectedOptions = value;
-          });
-          current.value = current.selectedOptions.toString();
-        },
-        whenEmpty: 'Выберите',
-      ),
-    ));
-  }*/
 
   List<Widget> buildModuleInput(int index) {
     List<Widget> fields = [];
@@ -159,13 +80,13 @@ class _ModulesPatientExpansionTileState
       globals.questtionaryID = modules[index].questionaryId;
       fields.add(Container(
         child: RaisedButton(
-          child: Text(
+          child: const Text(
             'Добавить запись',
             style: TextStyle(color: Colors.white, fontSize: 15),
           ),
           onPressed: () => {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => (DesktopFoodDiary())))
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => (const DesktopFoodDiary())))
           },
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -177,12 +98,12 @@ class _ModulesPatientExpansionTileState
     } else {
       for (var i = 0; i < modules[index].parameterList.length; i++) {
         ParameterModel current = modules[index].parameterList[i];
-        String current_name = current.name;
+        String currentName = current.name;
         row_widgets = [];
 
         row_widgets.add(Text(
-          "$current_name: ",
-          style: TextStyle(color: Colors.black, fontSize: 15),
+          "$currentName: ",
+          style: const TextStyle(color: Colors.black, fontSize: 15),
         ));
         if (current.dataType == "input") {
           row_widgets.add(Container(
@@ -193,8 +114,8 @@ class _ModulesPatientExpansionTileState
                   modules[index].parameterList[i].value = value,
               cursorColor: secondColor,
               decoration: InputDecoration(
-                hintStyle: TextStyle(fontSize: 16.0, color: secondColor),
-                labelStyle: TextStyle(fontSize: 16.0, color: secondColor),
+                hintStyle: const TextStyle(fontSize: 16.0, color: secondColor),
+                labelStyle: const TextStyle(fontSize: 16.0, color: secondColor),
                 labelText: modules[index].parameterList[i].description,
                 focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
@@ -203,14 +124,13 @@ class _ModulesPatientExpansionTileState
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
-                border: OutlineInputBorder(
+                border: const OutlineInputBorder(
                     borderSide: BorderSide(color: secondColor),
                     borderRadius: BorderRadius.all(Radius.circular(9.0))),
               ),
             ),
           ));
         }
-        // var result;
         if (current.dataType == "switch") {
           modules[index].parameterList[i].value = "нет";
           row_widgets.add(StatefulBuilder(builder: (context, setState) {
@@ -227,16 +147,8 @@ class _ModulesPatientExpansionTileState
                   });
                 });
           }));
-          //row_widgets.add(Text("есть"));
         }
         if (current.dataType == "datalist" || current.dataType == "select") {
-          /*getLables(current.id);
-          List<String> names = [];
-          for (var i = 0; i < lables.length; i++) {
-            names.add(lables[i].name);
-          }
-          List<String> selected_names = [];*/
-
           row_widgets.add(Expanded(
             child: DropDownMultiSelect(
               options: current.options,
@@ -251,116 +163,28 @@ class _ModulesPatientExpansionTileState
               whenEmpty: 'Выберите',
             ),
           ));
-
-          /*if (modules[index].parameterList[i].name == "Группа продуктов") {
-          row_widgets.add(Expanded(child: MyDropDownSelect()));
-        }*/
-          /*if (modules[index].parameterList[i].name == "Тошнота") {
-            row_widgets.add(Expanded(
-              child: DropDownMultiSelect(
-                options: toshnota,
-                selectedValues: toshnota_selected,
-                onChanged: (value) {
-                  print('selected $value');
-                  setState(() {
-                    toshnota_selected = value;
-                  });
-                  current.value = toshnota_selected.toString();
-                  modules[index].parameterList[i].value =
-                      toshnota_selected.toString();
-                },
-                whenEmpty: 'Выберите',
-              ),
-            ));
-          }
-          if (modules[index].parameterList[i].name == "Примеси в стуле") {
-            row_widgets.add(Expanded(
-              child: DropDownMultiSelect(
-                options: stul,
-                selectedValues: stul_selected,
-                onChanged: (value) {
-                  print('selected $value');
-                  setState(() {
-                    stul_selected = value;
-                  });
-                  current.value = stul_selected.toString();
-                  modules[index].parameterList[i].value =
-                      stul_selected.toString();
-                },
-                whenEmpty: 'Выберите',
-              ),
-            ));
-          }
-          if (modules[index].parameterList[i].name == "Стул") {
-            row_widgets.add(Expanded(
-              child: DropDownMultiSelect(
-                options: bristol,
-                selectedValues: bristol_selected,
-                onChanged: (value) {
-                  print('selected $value');
-                  setState(() {
-                    bristol_selected = value;
-                  });
-                  current.value = bristol_selected.toString();
-                  modules[index].parameterList[i].value =
-                      bristol_selected.toString();
-                },
-                whenEmpty: 'Выберите',
-              ),
-            ));
-          }*/
         }
-        //if (modules[index].name != "Дневник питания") {
         Row row = Row(
-            //mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: row_widgets);
+            mainAxisAlignment: MainAxisAlignment.start, children: row_widgets);
         fields.add(row);
-        fields.add(SizedBox(
+        fields.add(const SizedBox(
           height: 10,
         ));
       }
-
-      /*if (modules[index].name == "Дневник питания") {
-      Row row = Row(
-          //mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: row_widgets);
-      fields.add(row);
-      fields.add(SizedBox(
-        height: 10,
-      ));
-      row_food = row;
-
-      fields.add(Container(
-        child: RaisedButton(
-          child: Text(
-            'Добавить продукт',
-            style: TextStyle(color: Colors.white, fontSize: 15),
-          ),
-          onPressed: () => setState(() => {fields.add(row_food)}),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          color: firstColor,
-        ),
-        width: MediaQuery.of(context).size.width / 5,
-        height: 25,
-      ));
-    }*/
-      fields.add(SizedBox(
+      fields.add(const SizedBox(
         height: 10,
       ));
       fields.add(Container(
         child: RaisedButton(
-          child: Text(
+          child: const Text(
             'Добавить запись',
             style: TextStyle(color: Colors.white, fontSize: 15),
           ),
           onPressed: () => {
             sendModuleData(modules[index].questionaryId,
                 DateTime.now().toString(), modules[index].parameterList),
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                duration: const Duration(milliseconds: 600),
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                duration: Duration(milliseconds: 600),
                 content: Text('Запись добавлена')))
           },
           shape:
@@ -397,14 +221,6 @@ class _ModulesPatientExpansionTileState
                 List<String> catNames = [];
                 for (var k = 0; k < cat.length; k++) {
                   catNames.add(cat[k].name);
-                  /* List<ProductModel> prod =
-                      (await ApiDataProvider().getProducts(cat[k].id));
-                  List<String> prodNames = [];
-                  for (var n = 0; n < prod.length; n++) {
-                    prodNames.add(prod[n].name);
-                  }
-                  categories.addAll({cat[k].name: prodNames});
-                  modules[i].parameterList[j].options = catNames;*/
                 }
               }
 
@@ -417,19 +233,6 @@ class _ModulesPatientExpansionTileState
               modules[i].parameterList[j].options = names;
             }
           }
-        }
-      } else {
-        List<CategoryModel> cat = (await ApiDataProvider().getCategories());
-        for (var k = 0; k < cat.length; k++) {
-          /*List<ProductModel> prod =
-              (await ApiDataProvider().getProducts(cat[k].id));
-          List<String> prodNames = [];
-          for (var n = 0; n < prod.length; n++) {
-            prodNames.add(prod[n].name);
-          }
-          categories.addAll({cat[i].name: prodNames});*/
-          //modules[i].parameterList[j].options =
-          // (await ApiDataProvider().getFormula());
         }
       }
     }
@@ -447,10 +250,7 @@ class _ModulesPatientExpansionTileState
       itemBuilder: (_, index) {
         final item = modulesToPrint[index];
         return Card(
-          //Remember
-          //Here key is required to save and restore ExpansionTile expanded state
           key: PageStorageKey(item['id']),
-
           child: ExpansionTile(
             controlAffinity: ListTileControlAffinity.leading,
             childrenPadding:
@@ -460,7 +260,6 @@ class _ModulesPatientExpansionTileState
             title: Text(item['name']),
             textColor: firstColor,
             iconColor: firstColor,
-            // Expanded Contents
             children: buildModuleInput(item['id']),
           ),
         );

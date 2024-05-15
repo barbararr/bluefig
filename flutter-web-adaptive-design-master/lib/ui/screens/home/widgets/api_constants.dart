@@ -1,16 +1,16 @@
 class ApiConstants {
-  static String baseUrl = 'https://bluefig.ru';
+  static String baseUrl = 'https://api.bluefig.ru';
   static String usersEndpoint = '/user';
   static String loginEndpoint = '/login';
-  static String getPatientsDoctorEndpoint = '/patients_list/';
+  static String getPatientsDoctorEndpoint = '/patientsList/';
   static String getAllModulesEndpoint = '/parameters';
   static String giveModulesToPatient = '/questionary';
   static String getGastroLables = '/module/gastroLabel/';
   static String getNotifications = '/notifications/';
-  static String getDoctors = '/doctors_list';
-  static String getPatients = '/patients_list';
+  static String getDoctors = '/doctorsList';
+  static String getPatients = '/patientsList';
   static String getPatientModules = '/module/';
-  static String linkPatientDoctor = '/link_patient/';
+  static String linkPatientDoctor = '/linkPatient/';
   static String getLastRecordsPatient = ' /moduleFillIn/';
   static String sendModuleData = ' /moduleFillIn';
   static String getRecommendations = '/recommendation/';
@@ -22,5 +22,5 @@ class ApiConstants {
   static String getProducts = '/products';
   static String getStatistics = '/statistics/';
   static String getSortedPatients = '/patientsHierarchy/';
-  static String sendFoodData = '/patientsHierarchy/';
+  static String getSearchPatient = '/user/find/';
 }

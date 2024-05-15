@@ -1,12 +1,10 @@
+import 'package:adaptive_design/ui/screens/home/widgets/desktop_change_info_patient.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_main_patient.dart';
 import 'package:flutter/material.dart';
 import '../../../../common/app_colors.dart';
 import 'desktop_notification_page_patient.dart';
-import '../doctor/desktop_patient_doctor.dart';
-import '../doctor/desktop_patients_list_doctor.dart';
 import 'desktop_replies_page.dart';
 import '../log_in_page.dart';
-import '../modules_patient_expansion_tile.dart';
 import '../../../../common/globals.dart' as globals;
 
 class PatientAppbar extends StatefulWidget implements PreferredSizeWidget {
@@ -16,7 +14,7 @@ class PatientAppbar extends StatefulWidget implements PreferredSizeWidget {
   State<PatientAppbar> createState() => _PatientAppbarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(56.0);
+  Size get preferredSize => const Size.fromHeight(56.0);
 }
 
 class _PatientAppbarState extends State<PatientAppbar> {
@@ -24,7 +22,7 @@ class _PatientAppbarState extends State<PatientAppbar> {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: firstColor,
-      title: Text(
+      title: const Text(
         "BlueFig",
         style: TextStyle(color: Colors.white),
       ),
@@ -33,13 +31,14 @@ class _PatientAppbarState extends State<PatientAppbar> {
         Padding(
           padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
           child: MaterialButton(
-            child: Text(
+            child: const Text(
               'Данные',
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => (DesktopMainPatientPagePatient())));
+                  builder: (context) =>
+                      (const DesktopMainPatientPagePatient())));
             },
             color: thirdColor,
           ),
@@ -50,13 +49,14 @@ class _PatientAppbarState extends State<PatientAppbar> {
         Padding(
           padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
           child: MaterialButton(
-            child: Text(
+            child: const Text(
               'Уведомления',
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => (DesktopNotificationPagePatient())));
+                  builder: (context) =>
+                      (const DesktopNotificationPagePatient())));
             },
             color: thirdColor,
           ),
@@ -67,13 +67,13 @@ class _PatientAppbarState extends State<PatientAppbar> {
         Padding(
           padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
           child: MaterialButton(
-            child: Text(
-              'Ответы',
+            child: const Text(
+              'Рекомендации',
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => (DesktopRepliesPage())));
+                  builder: (context) => (const DesktopRepliesPage())));
             },
             color: thirdColor,
           ),
@@ -85,8 +85,11 @@ class _PatientAppbarState extends State<PatientAppbar> {
           padding: const EdgeInsets.fromLTRB(20.0, 10.0, 5.0, 10.0),
           child: MaterialButton(
             child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.account_circle),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => (const UserChangingUser())));
+              },
+              icon: const Icon(Icons.account_circle),
               color: Colors.white,
             ),
             onPressed: () {},
@@ -99,10 +102,10 @@ class _PatientAppbarState extends State<PatientAppbar> {
               onPressed: () {
                 globals.logedIn = false;
                 globals.user = null;
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => (Login())));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => (const Login())));
               },
-              icon: Icon(Icons.logout_rounded),
+              icon: const Icon(Icons.logout_rounded),
               color: Colors.white,
             ),
             onPressed: () {},

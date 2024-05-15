@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:multiselect/multiselect.dart';
 
 import '../../../common/models/category_model.dart';
@@ -43,17 +43,6 @@ class _MyDropDownSelectState extends State<MyDropDownSelect> {
   }
 
   void _getData() async {
-    /* List<CategoryModel> cat = (await ApiDataProvider().getCategories());
-    for (var k = 0; k < cat.length; k++) {
-      options.add(cat[k].name);
-      List<ProductModel> prod =
-          (await ApiDataProvider().getProducts(cat[k].id));
-      List<String> prodNames = [];
-      for (var n = 0; n < prod.length; n++) {
-        prodNames.add(prod[n].name);
-      }
-    }
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));*/
   }
 
   @override
@@ -70,4 +59,4 @@ class _MyDropDownSelectState extends State<MyDropDownSelect> {
       whenEmpty: 'Выберите',
     );
   }
-}
+}*/

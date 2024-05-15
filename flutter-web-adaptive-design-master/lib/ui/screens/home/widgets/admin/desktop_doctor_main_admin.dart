@@ -1,25 +1,17 @@
-import 'dart:html';
-
 import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_add_patient_to_doctor.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_admin_appbar.dart';
+import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_user_changing.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_doctor_recomendation.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_last_records_doctor.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_modules_doctor.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patients_list_doctor.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/app_colors.dart';
 import '../../../../common/models/user_model.dart';
 import '../api_data_provider.dart';
 import 'desktop_doctors_admin.dart';
-import '../doctor/desktop_notification_page_doctor.dart';
-import '../patient/desktop_notification_page_patient.dart';
-import 'desktop_patients_admin.dart';
-import '../patient/desktop_replies_page.dart';
 
 import '../../../../common/globals.dart' as globals;
-import '../log_in_page.dart';
 
 class DesktopMainDoctorPageAdmin extends StatefulWidget {
   const DesktopMainDoctorPageAdmin({Key? key}) : super(key: key);
@@ -85,8 +77,6 @@ class _DesktopMainDoctorPageAdminState
 
   TextSpan patientDataToString() {
     var text = TextSpan(
-        // Note: Styles for TextSpans must be explicitly defined.
-        // Child text spans will inherit styles from parent
         style: const TextStyle(
           fontSize: 14.0,
           color: Colors.black,
@@ -111,21 +101,23 @@ class _DesktopMainDoctorPageAdminState
                   }
                   if (selectedCategory == 'Назначить модуль') {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => (DesktopModulesPageDoctor())));
+                        builder: (context) =>
+                            (const DesktopModulesPageDoctor())));
                   }
                   if (selectedCategory == 'Данные') {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => (DesktopMainDoctorPageAdmin())));
+                        builder: (context) =>
+                            (const DesktopMainDoctorPageAdmin())));
                   }
                   if (selectedCategory == 'Последние записи') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopPatientLastRecordsPageDoctor())));
+                            (const DesktopPatientLastRecordsPageDoctor())));
                   }
                   if (selectedCategory == 'Дать рекомендацию') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopRecomendationPageDoctor())));
+                            (const DesktopRecomendationPageDoctor())));
                   }
                 });
               }),
@@ -133,12 +125,34 @@ class _DesktopMainDoctorPageAdminState
         .toList();
   }
 
+  void deleteDoctor() async {
+    if (!(await ApiDataProvider().deleteUser(globals.currentDoctorID))) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Произошла ошибка!'),
+        backgroundColor: Colors.red,
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          duration: Duration(milliseconds: 600),
+          content: Text('Пользователь удалён')));
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (_, __, ___) => const DesktopDoctorsListPageAdmin(),
+          transitionDuration: const Duration(milliseconds: 100),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      );
+    }
+  }
+
   Map userData = {};
   final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AdminAppbar(),
+      appBar: const AdminAppbar(),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -152,14 +166,14 @@ class _DesktopMainDoctorPageAdminState
                     padding: const EdgeInsets.all(28.0),
                     child: Container(
                       child: RaisedButton(
-                        child: Text(
+                        child: const Text(
                           'Прикрепить пациента',
                           style: TextStyle(color: Colors.white, fontSize: 14),
                         ),
                         onPressed: () => {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
-                                  (DesktopAddPatientToDoctor())))
+                                  (const DesktopAddPatientToDoctor())))
                         },
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30)),
@@ -173,11 +187,33 @@ class _DesktopMainDoctorPageAdminState
                     padding: const EdgeInsets.all(28.0),
                     child: Container(
                       child: RaisedButton(
-                        child: Text(
+                        child: const Text(
                           'Редактировать',
                           style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
-                        onPressed: () => {},
+                        onPressed: () => {
+                          globals.userToChange = globals.currentDoctorID,
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  (const UserChangingAdmin())))
+                        },
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        color: thirdColor,
+                      ),
+                      width: MediaQuery.of(context).size.width / 5,
+                      height: 30,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(28.0),
+                    child: Container(
+                      child: RaisedButton(
+                        child: const Text(
+                          'Удалить',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        onPressed: () => {deleteDoctor()},
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30)),
                         color: thirdColor,
@@ -190,7 +226,7 @@ class _DesktopMainDoctorPageAdminState
               ),
               Flexible(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Form(

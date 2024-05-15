@@ -1,17 +1,7 @@
-import 'dart:html';
-
 import 'package:adaptive_design/ui/common/app_colors.dart';
-import 'package:adaptive_design/ui/common/notification_list.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_main_patient.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_notification_page_patient.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patient_doctor.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_patient_appbar.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/replies_expansion_tile.dart';
 import 'package:flutter/material.dart';
-
-import '../log_in_page.dart';
-import '../my_expansion_tile.dart';
-import '../../../../common/globals.dart' as globals;
 
 class DesktopRepliesPage extends StatelessWidget {
   const DesktopRepliesPage({Key? key}) : super(key: key);
@@ -19,7 +9,7 @@ class DesktopRepliesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PatientAppbar(),
+      appBar: const PatientAppbar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -30,8 +20,8 @@ class DesktopRepliesPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(28.0),
                   child: Container(
-                    child: Text(
-                      'Ответы',
+                    child: const Text(
+                      'Рекомендации',
                       style: TextStyle(color: firstColor, fontSize: 22),
                     ),
                     width: MediaQuery.of(context).size.width / 3,
@@ -40,7 +30,7 @@ class DesktopRepliesPage extends StatelessWidget {
                 ),
               ],
             ),
-            ReplyExpansionTile()
+            const ReplyExpansionTile()
           ],
         ),
       ),

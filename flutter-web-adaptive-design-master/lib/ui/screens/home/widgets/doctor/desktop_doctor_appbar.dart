@@ -1,12 +1,9 @@
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_notification_page_doctor.dart';
 import 'package:flutter/material.dart';
 import '../../../../common/app_colors.dart';
-import '../patient/desktop_notification_page_patient.dart';
-import 'desktop_patient_doctor.dart';
+import '../desktop_change_info_patient.dart';
 import 'desktop_patients_list_doctor.dart';
-import '../patient/desktop_replies_page.dart';
 import '../log_in_page.dart';
-import '../modules_patient_expansion_tile.dart';
 import '../../../../common/globals.dart' as globals;
 
 class DoctorAppbar extends StatefulWidget implements PreferredSizeWidget {
@@ -16,8 +13,7 @@ class DoctorAppbar extends StatefulWidget implements PreferredSizeWidget {
   State<DoctorAppbar> createState() => _DoctorAppbarState();
 
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(56.0);
+  Size get preferredSize => const Size.fromHeight(56.0);
 }
 
 class _DoctorAppbarState extends State<DoctorAppbar> {
@@ -25,7 +21,7 @@ class _DoctorAppbarState extends State<DoctorAppbar> {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: firstColor,
-      title: Text(
+      title: const Text(
         "BlueFig",
         style: TextStyle(color: Colors.white),
       ),
@@ -34,13 +30,14 @@ class _DoctorAppbarState extends State<DoctorAppbar> {
         Padding(
           padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
           child: MaterialButton(
-            child: Text(
+            child: const Text(
               'Пациенты',
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => (DesktopPatientListPageDoctor())));
+                  builder: (context) =>
+                      (const DesktopPatientListPageDoctor())));
             },
             color: thirdColor,
           ),
@@ -51,13 +48,14 @@ class _DoctorAppbarState extends State<DoctorAppbar> {
         Padding(
           padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
           child: MaterialButton(
-            child: Text(
+            child: const Text(
               'Уведомления',
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => (DesktopNotificationPageDoctor())));
+                  builder: (context) =>
+                      (const DesktopNotificationPageDoctor())));
             },
             color: thirdColor,
           ),
@@ -69,8 +67,11 @@ class _DoctorAppbarState extends State<DoctorAppbar> {
           padding: const EdgeInsets.fromLTRB(20.0, 10.0, 5.0, 10.0),
           child: MaterialButton(
             child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.account_circle),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => (const UserChangingUser())));
+              },
+              icon: const Icon(Icons.account_circle),
               color: Colors.white,
             ),
             onPressed: () {},
@@ -83,10 +84,10 @@ class _DoctorAppbarState extends State<DoctorAppbar> {
               onPressed: () {
                 globals.logedIn = false;
                 globals.user = null;
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => (Login())));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => (const Login())));
               },
-              icon: Icon(Icons.logout_rounded),
+              icon: const Icon(Icons.logout_rounded),
               color: Colors.white,
             ),
             onPressed: () {},

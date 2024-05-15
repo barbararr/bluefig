@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'dart:developer';
 
-import 'package:intl/intl.dart';
-
 NotificationModel notificationModelFromJson(String str) {
   log("str " + str);
   final user = jsonDecode(str) as Map<String, dynamic>;

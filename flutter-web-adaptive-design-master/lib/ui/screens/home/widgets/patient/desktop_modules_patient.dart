@@ -1,19 +1,9 @@
 import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_main_patient.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_patient_appbar.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patients_list_doctor.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/last_records_expansion_tile.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/modules_expansion_tile.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/replies_expansion_tile.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/app_colors.dart';
-import 'desktop_notification_page_patient.dart';
-import '../doctor/desktop_patient_doctor.dart';
-import 'desktop_replies_page.dart';
-import '../log_in_page.dart';
 import '../modules_patient_expansion_tile.dart';
-import '../../../../common/globals.dart' as globals;
 
 class DesktopModulesPagePatient extends StatefulWidget {
   const DesktopModulesPagePatient({Key? key}) : super(key: key);
@@ -41,7 +31,7 @@ class _DesktopModulesPagePatientState extends State<DesktopModulesPagePatient> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PatientAppbar(),
+      appBar: const PatientAppbar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -51,18 +41,18 @@ class _DesktopModulesPagePatientState extends State<DesktopModulesPagePatient> {
               child: Row(children: [
                 Container(
                   child: RaisedButton.icon(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back,
                       color: Colors.white,
                     ),
-                    label: Text(
+                    label: const Text(
                       'на главную',
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) =>
-                                ((DesktopMainPatientPagePatient())))),
+                                ((const DesktopMainPatientPagePatient())))),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),
                     color: firstColor,
@@ -74,16 +64,16 @@ class _DesktopModulesPagePatientState extends State<DesktopModulesPagePatient> {
             ),
             Flexible(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Form(
                       key: _formkey,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Padding(
-                                padding: const EdgeInsets.all(12.0),
+                                padding: EdgeInsets.all(12.0),
                                 child: ModulesPatientExpansionTile()),
                           ]),
                     )),

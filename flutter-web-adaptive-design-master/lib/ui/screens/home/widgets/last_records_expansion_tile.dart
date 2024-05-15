@@ -13,15 +13,6 @@ class LastRecordsExpansionTile extends StatefulWidget {
 }
 
 class _LastRecordsExpansionTileState extends State<LastRecordsExpansionTile> {
-  // Generate a list of Users, You often use API or database for creation of this list
-  final List<Map<String, dynamic>> _users = List.generate(
-      20,
-      (index) => {
-            "id": index,
-            "name": "Запись $index",
-            "detail": "Запись $index. Параметры: ..."
-          });
-
   List<ModuleWithParametersModel> modules = [];
   List<Map<String, dynamic>> records = [];
 
@@ -70,10 +61,7 @@ class _LastRecordsExpansionTileState extends State<LastRecordsExpansionTile> {
       itemBuilder: (_, index) {
         final item = records[index];
         return Card(
-          //Remember
-          //Here key is required to save and restore ExpansionTile expanded state
           key: PageStorageKey(item['id']),
-
           child: ExpansionTile(
             controlAffinity: ListTileControlAffinity.leading,
             childrenPadding:
@@ -81,14 +69,21 @@ class _LastRecordsExpansionTileState extends State<LastRecordsExpansionTile> {
             expandedCrossAxisAlignment: CrossAxisAlignment.end,
             maintainState: true,
             title: Text(item['name']),
+            collapsedBackgroundColor: (modules[index].isRed &&
+                    globals.user!.roleId == globals.doctorRoleId)
+                ? const Color.fromRGBO(247, 156, 159, 100)
+                : null,
             textColor: firstColor,
             iconColor: firstColor,
-            // Expanded Contents
+            backgroundColor: (modules[index].isRed &&
+                    globals.user!.roleId == globals.doctorRoleId)
+                ? const Color.fromRGBO(247, 156, 159, 100)
+                : null,
             children: [
               ListTile(
                   leading: const CircleAvatar(
                     child: Icon(Icons.comment),
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color.fromRGBO(255, 255, 255, 0.018),
                     foregroundColor: firstColor,
                   ),
                   title: Text(item['detail'])),

@@ -1,29 +1,15 @@
-import 'dart:html';
-
 import 'package:adaptive_design/ui/common/models/module_model.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_doctor_appbar.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_modules_patient.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_patient_appbar.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_patient_last_records.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patients_list_doctor.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/log_in_page.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/app_colors.dart';
-import '../../../../common/models/category_model.dart';
-import '../../../../common/models/user_model.dart';
 import '../api_data_provider.dart';
-//import 'package:interactive_chart/interactive_chart.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-//import 'package:fl_animated_linechart/fl_animated_linechart.dart';
-//import 'package:fl_animated_linechart/chart/area_line_chart.dart';
-//import 'package:fl_animated_linechart/common/pair.dart';
-//import 'package:charts_flutter/flutter.dart' as charts;
 
 import '../../../../common/globals.dart' as globals;
+import 'desktop_doctor_last_recomendations.dart';
 import 'desktop_doctor_recomendation.dart';
+import 'desktop_existing_modules.dart';
 import 'desktop_last_records_doctor.dart';
 import 'desktop_modules_doctor.dart';
 import 'desktop_patient_doctor.dart';
@@ -48,6 +34,8 @@ class _DesktopStatisticsDoctorPagePatientState
     'Данные',
     'Статистика',
     'Последние записи',
+    'Рекомендации',
+    'Назначенные модули',
     'Назначить модуль',
     'Дать рекомендацию',
   ];
@@ -77,8 +65,6 @@ class _DesktopStatisticsDoctorPagePatientState
 
   TextSpan patientDataToString() {
     var text = TextSpan(
-        // Note: Styles for TextSpans must be explicitly defined.
-        // Child text spans will inherit styles from parent
         style: const TextStyle(
           fontSize: 14.0,
           color: Colors.black,
@@ -103,27 +89,38 @@ class _DesktopStatisticsDoctorPagePatientState
                   }
                   if (selectedCategory == 'Назначить модуль') {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => (DesktopModulesPageDoctor())));
+                        builder: (context) =>
+                            (const DesktopModulesPageDoctor())));
                   }
                   if (selectedCategory == 'Данные') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopMainPatientPageDoctor())));
+                            (const DesktopMainPatientPageDoctor())));
                   }
                   if (selectedCategory == 'Последние записи') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopPatientLastRecordsPageDoctor())));
+                            (const DesktopPatientLastRecordsPageDoctor())));
                   }
                   if (selectedCategory == 'Дать рекомендацию') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopRecomendationPageDoctor())));
+                            (const DesktopRecomendationPageDoctor())));
                   }
                   if (selectedCategory == 'Статистика') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopStatisticsDoctorPagePatient())));
+                            (const DesktopStatisticsDoctorPagePatient())));
+                  }
+                  if (selectedCategory == 'Рекомендации') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (const DesktopLastRecomendationsPageDoctor())));
+                  }
+                  if (selectedCategory == 'Назначенные модули') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (const DesktopExistingModulesPageDoctor())));
                   }
                 });
               }),
@@ -140,8 +137,6 @@ class _DesktopStatisticsDoctorPagePatientState
   }
 
   void _getData() async {
-    List<ModuleModel> modules = (await ApiDataProvider().getAllModules());
-
     data = (await ApiDataProvider().getStatisctics(
         "a76d9dc1-de4f-11ee-8c0c-00f5f80cf8ae", globals.currentPatientID));
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
@@ -162,11 +157,10 @@ class _DesktopStatisticsDoctorPagePatientState
       }
       print(elem);
       graphs.add(SfCartesianChart(
-          palette: [secondColor],
+          palette: const [secondColor],
           title: ChartTitle(text: elem),
           primaryXAxis: DateTimeAxis(),
           series: <CartesianSeries<ChartData, DateTime>>[
-            // Renders line chart
             LineSeries<ChartData, DateTime>(
                 dataSource: chartData,
                 xValueMapper: (ChartData data, _) => data.x,
@@ -177,43 +171,15 @@ class _DesktopStatisticsDoctorPagePatientState
   }
 
   Map userData = {};
-  final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    /* Map<DateTime, double> line1 = {
-      DateTime.parse('2012-02-27 13:08:00'): 10,
-      DateTime.parse('2012-02-28 17:08:00'): 19,
-    };
-    Map<DateTime, double> line2 = {
-      DateTime.parse('2012-02-27 15:08:00'): 20,
-      DateTime.parse('2012-02-29 19:08:00'): 30,
-    };
-    LineChart chart = LineChart.fromDateTimeMaps([
-      line1,
-      line2
-    ], [
-      Colors.green,
-      Colors.blue,
-    ], [
-      'C',
-      'C',
-    ], tapTextFontWeight: FontWeight.w400);*/
-
-    final List<ChartData> chartData = [
-      ChartData(DateTime(2016, 1), 6),
-      ChartData(DateTime(2015, 1), 11),
-      ChartData(DateTime(2017, 1), 9),
-      ChartData(DateTime(2019, 1), 14),
-      ChartData(DateTime(2018, 1), 10),
-    ];
-
     return Scaffold(
-      appBar: DoctorAppbar(),
+      appBar: const DoctorAppbar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               width: 60,
               height: 60,
             ),
@@ -222,126 +188,11 @@ class _DesktopStatisticsDoctorPagePatientState
                 children: getChoiceChips()),
             Flexible(
               child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Column(
-                    children: //[
-                        createChartData(),
-                    /*SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          child: Card(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text("Param"),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),*/
-                    /*SfCartesianChart(
-                          title: ChartTitle(text: 'Param'),
-                          primaryXAxis: DateTimeAxis(),
-                          series: <CartesianSeries<ChartData, DateTime>>[
-                            // Renders line chart
-                            LineSeries<ChartData, DateTime>(
-                                dataSource: chartData,
-                                xValueMapper: (ChartData data, _) => data.x,
-                                yValueMapper: (ChartData data, _) => data.y)
-                          ])*/
-
-                    /*SfCartesianChart(
-                          title: ChartTitle(text: 'Param 2'),
-                          primaryXAxis: DateTimeAxis(),
-                          series: <CartesianSeries<ChartData, DateTime>>[
-                            // Renders line chart
-                            LineSeries<ChartData, DateTime>(
-                                dataSource: chartData,
-                                xValueMapper: (ChartData data, _) => data.x,
-                                yValueMapper: (ChartData data, _) => data.y)
-                          ]),
-                      SfCartesianChart(
-                          title: ChartTitle(text: 'Param 3'),
-                          primaryXAxis: DateTimeAxis(),
-                          series: <CartesianSeries<ChartData, DateTime>>[
-                            // Renders line chart
-                            LineSeries<ChartData, DateTime>(
-                                dataSource: chartData,
-                                xValueMapper: (ChartData data, _) => data.x,
-                                yValueMapper: (ChartData data, _) => data.y)
-                          ]),
-                      SfCartesianChart(
-                          title: ChartTitle(text: 'Param 4'),
-                          primaryXAxis: DateTimeAxis(),
-                          series: <CartesianSeries<ChartData, DateTime>>[
-                            // Renders line chart
-                            LineSeries<ChartData, DateTime>(
-                                dataSource: chartData,
-                                xValueMapper: (ChartData data, _) => data.x,
-                                yValueMapper: (ChartData data, _) => data.y)
-                          ]),*/
-                    //],
-                  )
-
-                  /*AnimatedLineChart(
-                    chart,
-                    key: UniqueKey(),
-                    gridColor: Colors.black54,
-                    textStyle: TextStyle(fontSize: 10, color: Colors.black54),
-                    toolTipColor: Colors.white,
-                    showMarkerLines: false,
-                    verticalMarkerColor: null,
-                    verticalMarker: [
-                      DateTime.parse('2012-02-27 13:08:00'),
-                      DateTime.parse('2012-02-27 13:16:00')
-                    ],
-                    verticalMarkerIcon: [
-                      Icon(
-                        Icons.cancel_rounded,
-                        color: Colors.red,
-                      ),
-                      Icon(
-                        Icons.check_circle_rounded,
-                        color: Colors.green,
-                      ),
-                    ],
-                    iconBackgroundColor: Colors.white,
-                    legendsRightLandscapeMode: true,
-                  ), //Unique key to force animations
-                ),*/
-
-                  /*Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Form(
-                      key: _formkey,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.8,
-                                child: Card(
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: RichText(
-                                            text: patientDataToString()),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ]),
-                    )),*/
-                  ),
+                    children: createChartData(),
+                  )),
             ),
-            /*)*/
           ],
         ),
       ),

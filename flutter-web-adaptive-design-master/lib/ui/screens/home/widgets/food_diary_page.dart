@@ -1,22 +1,11 @@
-import 'package:adaptive_design/ui/screens/home/widgets/drop_down_select.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_main_patient.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_patient_appbar.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patients_list_doctor.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/last_records_expansion_tile.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/modules_expansion_tile.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/replies_expansion_tile.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:multiselect/multiselect.dart';
 
 import '../../../common/app_colors.dart';
-import '../../../common/app_colors.dart';
-import '../../../common/models/category_model.dart';
 import '../../../common/models/product_model.dart';
 import 'api_data_provider.dart';
-import 'doctor/desktop_patient_doctor.dart';
-import 'log_in_page.dart';
-import 'modules_patient_expansion_tile.dart';
 import '../../../common/globals.dart' as globals;
 
 class DesktopFoodDiary extends StatefulWidget {
@@ -62,12 +51,6 @@ class _DesktopFoodDiaryState extends State<DesktopFoodDiary> {
     List<ProductModel> cat = (await ApiDataProvider().getProducts());
     for (var k = 0; k < cat.length; k++) {
       options.add(cat[k].name);
-      /*List<ProductModel> prod =
-          (await ApiDataProvider().getProducts(cat[k].id));
-      List<String> prodNames = [];
-      for (var n = 0; n < prod.length; n++) {
-        prodNames.add(prod[n].name);
-      }*/
     }
     for (var i = 0; i < 100; i++) {
       List<String> list = [];
@@ -87,11 +70,16 @@ class _DesktopFoodDiaryState extends State<DesktopFoodDiary> {
     json +=
         "{\"value\": \"$value\", \"answerIdJpa\": {\"fillIn\" : \"\", \"parameterId\": \"$foodWeightsID\"}}]}";
     print(json);
-    /*if (!(await ApiDataProvider().sendModuleData(json)))
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    if (!(await ApiDataProvider().sendModuleData(json))) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Проверьте корректность введенных значений!'),
         backgroundColor: Colors.red,
-      ));*/
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          duration: Duration(milliseconds: 600),
+          content: Text('Запись добавлена')));
+    }
   }
 
   Card createCard(int i) {
@@ -105,10 +93,10 @@ class _DesktopFoodDiaryState extends State<DesktopFoodDiary> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
-              Text('Продукт:'),
+              const Text('Продукт:'),
               Flexible(
                 fit: FlexFit.tight,
                 child: DropDownMultiSelect(
@@ -127,10 +115,10 @@ class _DesktopFoodDiaryState extends State<DesktopFoodDiary> {
                   whenEmpty: 'Выберите',
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 70,
               ),
-              Text('Вес:'),
+              const Text('Вес:'),
               Container(
                 width: MediaQuery.of(context).size.width / 3,
                 height: 40,
@@ -138,11 +126,11 @@ class _DesktopFoodDiaryState extends State<DesktopFoodDiary> {
                   onChanged: (value) =>
                       foodWeights[foodWeights.length - 1] = value,
                   cursorColor: secondColor,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "г",
                     hintStyle: TextStyle(fontSize: 16.0, color: secondColor),
                     labelStyle: TextStyle(fontSize: 16.0, color: secondColor),
-                    focusedBorder: const OutlineInputBorder(
+                    focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: fourthColor,
                         width: 1.0,
@@ -155,7 +143,7 @@ class _DesktopFoodDiaryState extends State<DesktopFoodDiary> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
             ],
@@ -168,7 +156,7 @@ class _DesktopFoodDiaryState extends State<DesktopFoodDiary> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PatientAppbar(),
+      appBar: const PatientAppbar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -179,18 +167,18 @@ class _DesktopFoodDiaryState extends State<DesktopFoodDiary> {
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Container(
                   child: RaisedButton.icon(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back,
                       color: Colors.white,
                     ),
-                    label: Text(
+                    label: const Text(
                       'на главную',
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) =>
-                                ((DesktopMainPatientPagePatient())))),
+                                ((const DesktopMainPatientPagePatient())))),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),
                     color: firstColor,
@@ -198,21 +186,18 @@ class _DesktopFoodDiaryState extends State<DesktopFoodDiary> {
                   width: MediaQuery.of(context).size.width / 5,
                   height: 25,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 50,
                 ),
                 Container(
                   child: RaisedButton(
-                    child: Text(
+                    child: const Text(
                       'добавить запись',
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     onPressed: () => {
                       sendModuleData(
                           globals.questtionaryID, DateTime.now().toString()),
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          duration: const Duration(milliseconds: 600),
-                          content: Text('Запись добавлена')))
                     },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),
@@ -227,7 +212,7 @@ class _DesktopFoodDiaryState extends State<DesktopFoodDiary> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Flexible(
@@ -243,11 +228,11 @@ class _DesktopFoodDiaryState extends State<DesktopFoodDiary> {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: RaisedButton.icon(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.add_rounded,
                         color: firstColor,
                       ),
-                      label: Text('новый продукт'),
+                      label: const Text('новый продукт'),
                       onPressed: () => {
                         setState(() => {
                               foodWeights.add(''),

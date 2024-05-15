@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../common/app_colors.dart';
-import '../patient/desktop_notification_page_patient.dart';
-import '../patient/desktop_replies_page.dart';
 import '../log_in_page.dart';
-import '../modules_patient_expansion_tile.dart';
 import '../../../../common/globals.dart' as globals;
 import 'desktop_doctors_admin.dart';
 import 'desktop_patients_admin.dart';
@@ -15,7 +12,7 @@ class AdminAppbar extends StatefulWidget implements PreferredSizeWidget {
   State<AdminAppbar> createState() => _AdminAppbarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(56.0);
+  Size get preferredSize => const Size.fromHeight(56.0);
 }
 
 class _AdminAppbarState extends State<AdminAppbar> {
@@ -23,7 +20,7 @@ class _AdminAppbarState extends State<AdminAppbar> {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: firstColor,
-      title: Text(
+      title: const Text(
         "BlueFig",
         style: TextStyle(color: Colors.white),
       ),
@@ -32,13 +29,13 @@ class _AdminAppbarState extends State<AdminAppbar> {
         Padding(
           padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
           child: MaterialButton(
-            child: Text(
+            child: const Text(
               'Пациенты',
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => (DesktopPatientListPageAdmin())));
+                  builder: (context) => (const DesktopPatientListPageAdmin())));
             },
             color: thirdColor,
           ),
@@ -49,13 +46,13 @@ class _AdminAppbarState extends State<AdminAppbar> {
         Padding(
           padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
           child: MaterialButton(
-            child: Text(
+            child: const Text(
               'Доктора',
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => (DesktopDoctorsListPageAdmin())));
+                  builder: (context) => (const DesktopDoctorsListPageAdmin())));
             },
             color: thirdColor,
           ),
@@ -67,27 +64,16 @@ class _AdminAppbarState extends State<AdminAppbar> {
           width: 12.0,
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(20.0, 10.0, 5.0, 10.0),
-          child: MaterialButton(
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.account_circle),
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
-        ),
-        Padding(
           padding: const EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
           child: MaterialButton(
             child: IconButton(
               onPressed: () {
                 globals.logedIn = false;
                 globals.user = null;
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => (Login())));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => (const Login())));
               },
-              icon: Icon(Icons.logout_rounded),
+              icon: const Icon(Icons.logout_rounded),
               color: Colors.white,
             ),
             onPressed: () {},

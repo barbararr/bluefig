@@ -45,7 +45,6 @@ class UserModel {
   String roleId;
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    DateFormat dateFormat = DateFormat("yyyy-MM-dd");
     return UserModel(
       id: json["id"],
       username: json["username"],
@@ -61,17 +60,16 @@ class UserModel {
   }
 
   Map<String, String> toJson() => {
-        "id": id,
+        //"\"id\"": "\"1\"",
         "username": username,
         "firstname": firstname,
         "lastname": lastname,
-        "email": email,
-        "birthday": birthday,
-        //"birthday": birthday.toString(),
-        "sex": sex,
-        "passwordHash": password,
         "fathername": fathername,
+        "email": email,
+        "password": password,
         "roleId": roleId,
+        "birthday": birthday,
+        "sex": sex,
       };
 
   Map<String, String> getData() => {

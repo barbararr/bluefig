@@ -1,19 +1,11 @@
 import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_doctor_appbar.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_patients_list_doctor.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/last_records_expansion_tile.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/replies_expansion_tile.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../common/app_colors.dart';
+import 'desktop_doctor_last_recomendations.dart';
 import 'desktop_doctor_recomendation.dart';
+import 'desktop_existing_modules.dart';
 import 'desktop_modules_doctor.dart';
-import 'desktop_notification_page_doctor.dart';
-import '../patient/desktop_notification_page_patient.dart';
 import 'desktop_patient_doctor.dart';
-import '../patient/desktop_replies_page.dart';
-import '../log_in_page.dart';
-import '../../../../common/globals.dart' as globals;
 import 'desktop_statistics_doctor.dart';
 
 class DesktopPatientLastRecordsPageDoctor extends StatefulWidget {
@@ -30,6 +22,8 @@ class _DesktopPatientLastRecordsPageDoctorState
     'Данные',
     'Статистика',
     'Последние записи',
+    'Рекомендации',
+    'Назначенные модули',
     'Назначить модуль',
     'Дать рекомендацию',
   ];
@@ -59,27 +53,38 @@ class _DesktopPatientLastRecordsPageDoctorState
                   }
                   if (selectedCategory == 'Назначить модуль') {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => (DesktopModulesPageDoctor())));
+                        builder: (context) =>
+                            (const DesktopModulesPageDoctor())));
                   }
                   if (selectedCategory == 'Данные') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopMainPatientPageDoctor())));
+                            (const DesktopMainPatientPageDoctor())));
                   }
                   if (selectedCategory == 'Последние записи') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopPatientLastRecordsPageDoctor())));
+                            (const DesktopPatientLastRecordsPageDoctor())));
                   }
                   if (selectedCategory == 'Дать рекомендацию') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopRecomendationPageDoctor())));
+                            (const DesktopRecomendationPageDoctor())));
                   }
                   if (selectedCategory == 'Статистика') {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            (DesktopStatisticsDoctorPagePatient())));
+                            (const DesktopStatisticsDoctorPagePatient())));
+                  }
+                  if (selectedCategory == 'Рекомендации') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (const DesktopLastRecomendationsPageDoctor())));
+                  }
+                  if (selectedCategory == 'Назначенные модули') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            (const DesktopExistingModulesPageDoctor())));
                   }
                 });
               }),
@@ -92,12 +97,12 @@ class _DesktopPatientLastRecordsPageDoctorState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DoctorAppbar(),
+      appBar: const DoctorAppbar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               width: 60,
               height: 60,
             ),
@@ -106,16 +111,16 @@ class _DesktopPatientLastRecordsPageDoctorState
                 children: getChoiceChips()),
             Flexible(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Form(
                       key: _formkey,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Padding(
-                                padding: const EdgeInsets.all(12.0),
+                                padding: EdgeInsets.all(12.0),
                                 child: LastRecordsExpansionTile()),
                           ]),
                     )),

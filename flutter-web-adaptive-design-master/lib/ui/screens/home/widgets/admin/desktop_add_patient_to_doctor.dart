@@ -1,20 +1,10 @@
-import 'dart:html';
-
 import 'package:adaptive_design/ui/common/app_colors.dart';
-import 'package:adaptive_design/ui/common/notification_list.dart';
 import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_admin_appbar.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/doctor/desktop_notification_page_doctor.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_patient_main_admin.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_patients_admin.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/patient/desktop_replies_page.dart';
-import 'package:adaptive_design/ui/screens/home/widgets/admin/desktop_user_registration.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/models/user_model.dart';
 import '../api_data_provider.dart';
 import '../../../../common/globals.dart' as globals;
-import 'desktop_doctors_admin.dart';
-import '../log_in_page.dart';
 
 class DesktopAddPatientToDoctor extends StatefulWidget {
   const DesktopAddPatientToDoctor({Key? key}) : super(key: key);
@@ -41,11 +31,12 @@ class _DesktopAddPatientToDoctorState extends State<DesktopAddPatientToDoctor> {
   Future<void> linkPatientToDoctor(int index) async {
     // go to patients profile with this id
     if (!(await ApiDataProvider()
-        .linkPatientDoctor(patients[index].id, globals.currentDoctorID)))
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        .linkPatientDoctor(patients[index].id, globals.currentDoctorID))) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Ошибка! Проверьте корректность введенных значений!'),
         backgroundColor: Colors.red,
       ));
+    }
   }
 
   String getPatientName(int index) {
@@ -61,7 +52,7 @@ class _DesktopAddPatientToDoctorState extends State<DesktopAddPatientToDoctor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AdminAppbar(),
+      appBar: const AdminAppbar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -72,7 +63,7 @@ class _DesktopAddPatientToDoctorState extends State<DesktopAddPatientToDoctor> {
                 Padding(
                   padding: const EdgeInsets.all(28.0),
                   child: Container(
-                    child: Text(
+                    child: const Text(
                       'Пациенты',
                       style: TextStyle(color: firstColor, fontSize: 22),
                     ),
@@ -80,12 +71,12 @@ class _DesktopAddPatientToDoctorState extends State<DesktopAddPatientToDoctor> {
                     height: 30,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(28.0),
                   child: Container(
                     child: RaisedButton(
-                      child: Text(
+                      child: const Text(
                         'Прикрепить',
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
@@ -94,9 +85,10 @@ class _DesktopAddPatientToDoctorState extends State<DesktopAddPatientToDoctor> {
                         setState(() {
                           selectedIndex = -1;
                         }),
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            duration: const Duration(milliseconds: 600),
-                            content: Text('Пациент прикреплен')))
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                duration: Duration(milliseconds: 600),
+                                content: Text('Пациент прикреплен')))
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30)),
